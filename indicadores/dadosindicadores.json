@@ -1,0 +1,20 @@
+{
+    "key": 1,
+    "modelo": "line",
+    "funcaodados": 1,
+    "cabecalhoIndLinha" : [
+        ["number", "Day"],
+        ["number", "Guardians of the Galaxy"],
+        ["number", "The Avengers"],
+        ["number", "Transformers"]
+    ],
+    "optionsIndLinha": {
+        "chart": {
+            "title": "Box Office Earnings in First Two Weeks of Opening",
+            "subtitle": "in millions of dollars (USD)"
+        },
+        "width": 200,
+        "height": 100
+    }
+}
+

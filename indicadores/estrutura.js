@@ -61,7 +61,7 @@ function conteudoTabela(d) {
         let tdedit = document.createElement('td')
         let tdexcluir = document.createElement('td')
         tdkey.innerHTML = (campo['key'])
-        tdtitulo.innerHTML = (campo.optionsIndLinha.chart['title'])
+        tdtitulo.innerHTML = (campo.optionsInd.chart['title'])
         tdmodelo.innerHTML = (campo['modelo'])
         tdedit.innerHTML = `<a href=# id=edit${campo['key']}>E</a>`
         tdexcluir.innerHTML= `<a href=#  id=exlui${campo['key']}>X</a>`

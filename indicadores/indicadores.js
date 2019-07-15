@@ -152,8 +152,9 @@ function indicadorBarra() {
 function criarDados(){
     let options = {
                     "modelo":document.getElementById("modeloIndicador").value,
-                    "funcaodados" :document.getElementById("editDados").value,
-                    "cabecalho" : {
+                    "buscarDados" :document.getElementById("editDados").value,
+                    "optionsInd" :
+                                 {
                                     "chart": {
                                                 "title": document.getElementById("editTitulo").value,
                                                 "subtitle": document.getElementById("editSubtitulo").value
@@ -163,4 +164,34 @@ function criarDados(){
                                 }           
                     }
     return options
+}
+
+
+function verficarFuncaoIndicador(modeloIndicador) {
+    switch (modeloIndicador) {
+        case "line":
+            return indicadoresLinha
+            break;
+       case "bar":
+           return indicadoresBarra
+           break;
+
+        default:
+            break;
+    }
+}
+
+
+function verificarFuncaoBuscarDados(nomeFuncao) {
+    switch (nomeFuncao) {
+        case "dadoslinha":
+            return dadoslinha()
+            break;
+       case 2:
+           return indicadoresBarra
+           break;
+
+        default:
+            break;
+    }
 }

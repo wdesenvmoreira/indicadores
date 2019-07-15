@@ -16,25 +16,26 @@
          .then(json => { return json })
  }
 
- function verficarFuncao(idfuncao) {
-     switch (idfuncao) {
-         case 1:
-             return indicadoresLinha
-             break;
-        case 2:
-            return indicadoresBarra
-            break;
-
-         default:
-             break;
-     }
- }
 
  async function allIndicadores() {
     let allInd = await fetch('http://127.0.0.1:8887/indicadores/dadosindicadores2.json')
         .then(response => response.json())
         .then(data => {
             return data // Prints result from `response.json()` in getRequest
+        })
+        .catch(error => console.error(error))
+    return allInd
+}
+async function oneIndicador(chave) {
+    let allInd = await fetch('http://127.0.0.1:8887/indicadores/dadosindicadores2.json')
+        .then(response => response.json())
+        .then(data => {
+              data.indicadores.forEach(element => {
+              if (element.key === chave)
+              return element
+              else
+              return null
+          });
         })
         .catch(error => console.error(error))
     return allInd

@@ -1,0 +1,46 @@
+{"indicadores":
+    [
+        {
+            "key": 1,
+            "modelo": "line",
+            "funcaodados": 1,
+            "buscarDados" : "dadoslinha",
+            "cabecalhoIndLinha" : [
+                ["number", "Day"],
+                ["number", "Guardians of the Galaxy"],
+                ["number", "The Avengers"],
+                ["number", "Transformers"]
+            ],
+            "optionsIndLinha": {
+                "chart": {
+                    "title": "Box Office Earnings in First Two Weeks of Opening",
+                    "subtitle": "in millions of dollars (USD)"
+                },
+                "width": 400,
+                "height": 300
+            }
+        }
+    ,
+    
+        {
+            "key": 2,
+            "modelo": "line",
+            "funcaodados": 1,
+            "buscarDados" : "dadoslinha",
+            "cabecalhoIndLinha" : [
+                ["number", "Herois"],
+                ["number", "Superman"],
+                ["number", "Batman"],
+                ["number", "Mulher Maravilha"]
+            ],
+            "optionsIndLinha": {
+                "chart": {
+                    "title": "Trindade",
+                    "subtitle": "Top da DC"
+                },
+                "width": 300,
+                "height": 200
+            }
+        }
+    ]
+}

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/folha_comum.css">
+
+    <title>Painel de Controle</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Painel de Controle Indicadores</h1>
+            Object.keys(campo) - Para encontrar os campos do objeto
+        </div>
+
+        <div class="row">
+            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#ExemploModalCentralizado">
+            Criar Indicador
+        </button>
+        </div>
+        </BR>
+        <div class="row">
+            <table class="table table-hover table-sm table-dark" id="tabela_indicadores" name="tabela_indicadores">
+                <thead>
+                    <tr>
+                        <th scope="col">Key</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody id='tablebody' name='tablebody'>
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+
+    <!-- Modals     -->
+    <!-- Modal Criar Indicador -->
+    <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloModalCentralizado">Novo Indicador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="modeloIndicador">Modelo:</label>
+                        </div>
+                        <select class="custom-select" id="modeloIndicador" name="modeloIndicador">
+                <option selected>Escolher...</option>
+                <option value="barra">Barra</option>
+                <option value="linha">Linha</option>
+                <option value="pizza">Pizza</option>
+                <option value="pizza">Velocimetro</option>
+              </select>
+
+                    </div>
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="editTitulo">Título:</label>
+                        </div>
+                        <input type="text" class="form-control" id="editTitulo" name="editTitulo" aria-label="Título do Indicador" aria-describedby="Título do Indicador">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="editSubtitulo">Subtítulo:</label>
+                        </div>
+                        <input type="text" class="form-control" id="editSubtitulo" name="editSubtitulo" aria-label="Subtítulo do Indicador" aria-describedby="Subtítulo do Indicador">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Largura:</span>
+                        </div>
+                        <input type="text" class="form-control" id="editLargura" name="editLargura" aria-label="Largura do Indicador" aria-describedby="Largura do Indicador">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Altura:</span>
+                        </div>
+                        <input type="text" class="form-control" id="editAltura" name='editAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Dados:</span>
+                        </div>
+                        <input type="text" class="form-control" id="editDados" name='editDados' aria-label="Função que busca os dados indicador" aria-describedby="função que busca os dados para o indicador. ">
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+ <!-- <script type="text/javascript" src="indicadores/dashbord.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <!-- <script type="text/javascript" src="indicadores/dados.json"></script> -->
+    <script type="text/javascript" src="indicadores/bddados.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="indicadores/indicadores.js"></script>
+    <script type="text/javascript" src="indicadores/estrutura.js"></script>
+
+
+   
+</body>
+
+</html>

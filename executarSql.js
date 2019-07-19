@@ -25,12 +25,11 @@ const localizarDuplicata = (SQL) => {
         }
 
         // db = DATABASE
-        db.query(SQL, function(err, result) {
+        db.query(SQL, async function(err, result) {
             if (err) {
                 deferred.reject(new Error(err))
             } else {
-                q.when()
-                deferred.resolve(result)
+                await deferred.resolve(result)
             }
             // console.log('deferred.promisse: ', deferred.promise)
 
@@ -104,16 +103,16 @@ async function newLocalization() {
 
 
 let da = localizarDuplicata('select * from alinea')
-    // .then(function(data) {
-    //     return data
-    // })
+    .then(function(data) {
+        return data
+    })
 let daInd = localizarIndicador('select * from TBL_INDICADORES').then(async(result) => { return await result })
 
 //console.log('Da dentro da função', da.then(res => res).then(res => console.log(res.options)))
 //console.log('Indicadores', daInd.then(res => res).then(res => console.log(res.optionsInd)))
 //console.log('Indicadores parse', daInd.then(res => res).then(res => console.log(JSON.stringify(res.optionsInd))))
 console.log('antes de chamar o da')
-console.log('Localizando alinea', da)
+console.log('Localizando alinea', da.then((res) => { return res }))
 console.log('depois de chamar da')
 
 

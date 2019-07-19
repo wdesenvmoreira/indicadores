@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "node-firebird": "^0.8.6"
+    "node-firebird": "^0.8.6",
+    "q": "^1.5.1"
   }
 }

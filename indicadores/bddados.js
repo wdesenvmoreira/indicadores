@@ -1,5 +1,4 @@
-
- async function dadoslinha() {
+async function dadoslinha() {
     let allInd = await fetch('http://127.0.0.1:8887/indicadores/dados.json')
         .then(response => response.json())
         .then(data => {
@@ -9,16 +8,20 @@
     return allInd
 }
 
- async function dadosIndicadores() {
-     var urlx = 'http://127.0.0.1:8887/indicadores/dadosindicadores2.json'
-     return fetch(urlx)
-         .then(res => res.json())
-         .then(json => { return json })
- }
+async function dadosIndicadores() {
+    var urlx = 'http://127.0.0.1:8887/indicadores/dadosindicadores2.json'
+    return fetch(urlx)
+        .then(res => res.json())
+        .then(json => { return json })
+}
 
 
- async function allIndicadores() {
-    let allInd = await fetch('http://127.0.0.1:8887/indicadores/dadosindicadores2.json')
+async function allIndicadores() {
+    // let allInd = await fetch('http://127.0.0.1:8887/indicadores/dadosindicadores2.json')
+    let allInd = await fetch('http://localhost:3000/indicadores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        })
         .then(response => response.json())
         .then(data => {
             return data // Prints result from `response.json()` in getRequest
@@ -30,12 +33,12 @@ async function oneIndicador(chave) {
     let allInd = await fetch('http://127.0.0.1:8887/indicadores/dadosindicadores2.json')
         .then(response => response.json())
         .then(data => {
-              data.indicadores.forEach(element => {
-              if (element.key === chave)
-              return element
-              else
-              return null
-          });
+            data.indicadores.forEach(element => {
+                if (element.key === chave)
+                    return element
+                else
+                    return null
+            });
         })
         .catch(error => console.error(error))
     return allInd

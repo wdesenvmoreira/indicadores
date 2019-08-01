@@ -21,9 +21,13 @@ async function allIndicadores() {
     let allInd = await fetch('http://localhost:3000/indicadores', {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                mode: 'cors'
-            }
+                "Accept": 'application/json',
+                "mode": 'cors',
+                "Content-Type": "application/json",
+                "Content-Type": "text/plain"
+            },
+            // credentials: "include",
+            withCredentials: false
         })
         .then(response => response.json())
         .then(data => {

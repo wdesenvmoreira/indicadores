@@ -53,7 +53,7 @@ function postarIndicador(indicadorNew, cabecalho, dados, opcoes) {
 function conteudoTabela(d) {
     const tabela = document.getElementById('tabela_indicadores')
     let dados = d.indicadores
-    dados.forEach(function(campo, indice, arrayCompleta){
+    dados.forEach(function(campo, indice, arrayCompleta) {
         let tr = document.createElement('tr')
         let tdkey = document.createElement('td')
         let tdtitulo = document.createElement('td')
@@ -64,15 +64,15 @@ function conteudoTabela(d) {
         tdtitulo.innerHTML = (campo.optionsInd.chart['title'])
         tdmodelo.innerHTML = (campo['modelo'])
         tdedit.innerHTML = `<a href=# id=edit${campo['key']}>E</a>`
-        tdexcluir.innerHTML= `<a href=#  id=exlui${campo['key']}>X</a>`
+        tdexcluir.innerHTML = `<a href=#  id=exlui${campo['key']}>X</a>`
         tr.appendChild(tdkey)
         tr.appendChild(tdtitulo)
         tr.appendChild(tdmodelo)
         tr.appendChild(tdedit)
         tr.appendChild(tdexcluir)
         tabela.appendChild(tr)
-      });
-    
+    });
+
 }
 
 

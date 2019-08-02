@@ -83,12 +83,12 @@ async function preencherTabela() {
 }
 
 function limparTabela() {
-    const tabela = document.getElementById('tabela_indicadores')
+    let tabela = document.getElementById('tabela_indicadores')
     var i = tabela.childElementCount - 1
     for (i; tabela.childElementCount > 2; i--) {
         tabela.removeChild(tabela.children[i])
 
     }
 }
-
-preencherTabela()
+//if (document.getElementById('tabela_indicadores') != null) then
+//preencherTabela()

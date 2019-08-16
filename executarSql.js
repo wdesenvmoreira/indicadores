@@ -26,8 +26,7 @@ app.use(cors())
 app.listen(port, () => {
     console.log(`Server started on port`);
 });
-// console.log('options', options)
-// 5 = the number is count of opened sockets
+
 var pool = firebird.pool(5, options);
 var poolInd = firebird.pool(5, optionsInd);
 
@@ -42,46 +41,6 @@ function ver(t) {
 async function x(d) { y = await d }
 
 function fx(v) { return v }
-
-
-const localizarDuplicata = async(SQL, funcaoExecute) => {
-    var dados
-        // Get a free pool
-
-
-
-    pool.get(function(err, db) {
-
-        if (err) {
-            console.log('Erro ao conectar à base de dados.')
-            throw err;
-        }
-
-        // db = DATABASE
-
-
-
-        db.query(SQL, async function(err, result) {
-            if (err) {
-                console.log(err)
-            } else {
-
-                funcaoExecute(result)
-                x(result)
-                app.get('/', (req, res) => {
-                    res.send(result);
-                });
-
-            }
-            // console.log('deferred.promisse: ', deferred.promise)
-
-            db.detach();
-
-        })
-
-    });
-
-}
 
 
 
@@ -138,6 +97,9 @@ const localizarIndicador = (SQL, funcaoExecute) => {
             app.get('/dashbord', (req, res) => {
                 res.render(dashboard.html)
             });
+            app.get('/', (req, res) => {
+                res.location('http://127.0.0.1:8887/dashboard.html');
+            });
 
             db.detach();
 
@@ -148,73 +110,8 @@ const localizarIndicador = (SQL, funcaoExecute) => {
     return daros
 }
 
-async function newLocalization() {
-    var dados
-    firebird.attach(optionsInd, function(err, db) {
 
-        if (err)
-            throw err;
-
-        db.sequentially('select * from TBL_INDICADORES', async function(row, index) {
-
-                dados = row
-            },
-            function(err) {
-                // END
-                // IMPORTANT: close the connection
-                db.detach();
-            });
-    });
-    return await dados
-}
-
-
-
-
-
-
-
-let da = localizarDuplicata('select * from alinea', ver)
 
 let daInd = localizarIndicador('select * from TBL_INDICADORES', fx)
-
-async function ultimaTentativa() {
-    console.log('antes de chamar o da')
-    console.log('Localizando alinea', da)
-    console.log('daInd', await daInd)
-}
-console.log('Abaixo ultima Tentativa:')
-ultimaTentativa();
-firebird.attach(options, function(err, db) {
-
-
-
-    if (err)
-        throw err;
-
-    // db = DATABASE
-    db.query('SELECT * FROM Alinea',
-        function(err, result) {
-            // IMPORTANT: close the connection
-            ver(result)
-            db.detach();
-
-
-        })
-
-});
-
-
-
-
-
-
-//console.log('Da dentro da função', da.then(res => res).then(res => console.log(res.options)))
-//console.log('Indicadores', daInd.then(res => res).then(res => console.log(res.optionsInd)))
-//console.log('Indicadores parse', daInd.then(res => res).then(res => console.log(JSON.stringify(res.optionsInd))))
-console.log('antes de chamar o da')
-console.log('Localizando alinea', da.then((res) => { return res }))
-console.log('depois de chamar da')
-
 
 //module.exports = { localizarDuplicata }

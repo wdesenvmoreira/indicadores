@@ -2,7 +2,7 @@
 // Criando linhas do container principal, depois será acrescentado cada indicador à ultima linha
 //Depois disso será necessário criar a pagina de painel de controle. 
 // Depois o arquivo de inicialização. 
-
+let todosDados
 
 const primeDiv = document.getElementById('principalDiv')
 
@@ -63,8 +63,8 @@ function conteudoTabela(d) {
         tdkey.innerHTML = (campo['key'])
         tdtitulo.innerHTML = (campo.optionsInd.chart['title'])
         tdmodelo.innerHTML = (campo['modelo'])
-        tdedit.innerHTML = `<a href=# id=edit${campo['key']}>E</a>`
-        tdexcluir.innerHTML = `<a href=#  id=exlui${campo['key']}>X</a>`
+        tdedit.innerHTML = `<a href="#" onclick="editarIndicador(${campo['key']})" id=edit${campo['key']}  data-toggle="modal" data-target="#ModalEditarIndicador">E</a>`
+        tdexcluir.innerHTML = `<a href="#"  id=exlui${campo['key']}>X</a>`
         tr.appendChild(tdkey)
         tr.appendChild(tdtitulo)
         tr.appendChild(tdmodelo)
@@ -80,6 +80,7 @@ async function preencherTabela() {
     limparTabela()
     var campo = await allIndicadores()
     conteudoTabela(campo)
+    todosDados = campo
 }
 
 function limparTabela() {
@@ -90,5 +91,53 @@ function limparTabela() {
 
     }
 }
-//if (document.getElementById('tabela_indicadores') != null) then
-//preencherTabela()
+
+function editarIndicador(chaveEdicao) {
+    let dados = todosDados.indicadores
+    dados.forEach(function(campo, indice, arrayCompleta) {
+        if (campo['key'] == chaveEdicao) {
+            let formIndicador = document.getElementById('formEditarIndicador')
+            formIndicador.reset();
+            // formIndicador.method = 'PUT'
+            // formIndicador.action = `http://localhost:3000/indicador/editar`
+            document.getElementById('btSalvarEdicao').setAttribute('onclick', `salvarEdicao(${chaveEdicao})`)
+            let modeloIndicador = document.getElementById('editarModeloIndicador')
+            let editDescInd = document.getElementById('editarDescInd')
+            let editTitulo = document.getElementById('editarTitulo')
+            let editSubtitulo = document.getElementById('editarSubtitulo')
+            let editLargura = document.getElementById('editarLargura')
+            let editAltura = document.getElementById('editarAltura')
+            let editDados = document.getElementById('editarDados')
+            let key = document.getElementById('chave')
+
+            modeloIndicador.value = campo['modelo']
+            editDescInd.value = campo['DESC_INDICADOR']
+            editTitulo.value = campo['optionsInd'].chart.title
+            editSubtitulo.value = campo['optionsInd'].chart.subtitle
+            editAltura.value = campo['optionsInd'].height
+            editLargura.value = campo['optionsInd'].width
+            editDados.value = campo['buscarDados']
+            key.value = campo['key']
+        }
+    });
+
+
+}
+
+function salvarEdicao() {
+    // let formIndicador = document.getElementById('formIndicador')
+    // let modeloIndicador = document.getElementById('modeloIndicador')
+    // let editDescInd = document.getElementById('editDescInd')
+    // let editTitulo = document.getElementById('editTitulo')
+    // let editSubtitulo = document.getElementById('editSubtitulo')
+    // let editLargura = document.getElementById('editLargura')
+    // let editAltura = document.getElementById('editAltura')
+    // let editDados = document.getElementById('editDados')
+
+    let formIndicador = document.getElementById('formEditarIndicador')
+    formIndicador.submit()
+}
+
+function teste() {
+    alert("foi");
+}

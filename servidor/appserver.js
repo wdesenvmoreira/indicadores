@@ -9,6 +9,7 @@ var cors = require('cors')
     //let options = conexao;
     //let optionsInd = conexaoInd;
 let routerIndicador = express.Router();
+let indicadorRouter = require('../routes/indicadores.js')
 let executeIndicador = require('../controller/controllerExecutar.js')
 const bodyParser = require('body-parser')
 
@@ -54,37 +55,50 @@ app.get('/router', (req, res) => {
     res.render();
 });
 
-//Inserindo dados na base de dados indicador. 
-// > Após colocar informações no formulário será precionado o botão Salva
-// > Após precionado o botão salvar é feito criado um objeto com os dados do novo indicador. 
-// > Deve ser feita uma validação desses dados
-//  > Após validação dos dados é enviado esses dados para o arquivo que executa a insersão dos dados na base de dados
-// > O retorno informará se foi inserido ou não. 
-
-
 routerIndicador.post('/novo', (req, res) => {
-    //   res.render(executeIndicador, req.params);
-    //console.log('Request Type:', req.method);
-    //console.log('MODELO:', req.body.modeloIndicador);
-    //res.status(200).send(req.body);
-    //res.render(executeIndicador.incluir(req.body))
-    if (executeIndicador.incluir(req.body)) {
-        res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-    }
+        if (executeIndicador.incluir(req.body)) {
+            res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+        }
 
 
-})
+    })
+    // routerIndicador.post('/editar/:key', (req, res) => {
+    //     if (executeIndicador.editarIndicador(req.params.key, req.body)) {
+    //         res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+    //     }
+
+// })
+
+routerIndicador.post('/editar', (req, res) => {
+        if (executeIndicador.editarIndicador(req.body)) {
+            res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+        }
+
+    })
+    //routerIndicador.get('/editar', (req, res) => {
+    // if (executeIndicador.editarIndicador(req.body)) {
+    //     res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+    // }
+    //res.send('valor com get: ');
+    //})
 routerIndicador.get('/novo', (req, res) => {
     // res.render(executeIndicador, req.params);
     res.send('Estudar mais get');
 })
 routerIndicador.get('/lista', (req, res) => {
-    function fx(v) { return v }
+        function fx(v) { return v }
 
-    res.send('Lista de indicadores', executeIndicador.localizarIndicador('select * from TBL_INDICADORES', fx, app));
+        res.send('Lista de indicadores', executeIndicador.localizarIndicador('select * from TBL_INDICADORES', fx, app));
 
 
-})
+    })
+    // routerIndicador.get('/:key', (req, res) => {
+    //     function fx(v) { return v }
+    //     let SQL = `select * from TBL_INDICADORES where key= ${req.params.key}`
+    //     console.log('SQL:', SQL)
+    //     executeIndicador.localizarIndicadorPorKey(SQL, fx, app)
+    //     res.redirect('http://127.0.0.1:8887/edicaoIndicadores.html')
+    // });
 
 app.use('/indicador', routerIndicador);
 

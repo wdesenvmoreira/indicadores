@@ -36,3 +36,26 @@ async function allIndicadores() {
         .catch(error => console.error(error))
     return allInd
 }
+async function oneIndicadores(key) {
+    console.log('localização: ', `http://localhost:3000/indicador/${key}`)
+
+    window.location.href = `http://localhost:3000/indicador/${key}`
+
+    let allInd = await fetch(`http://localhost:3000/indicador/${key}`, {
+            method: 'GET',
+            headers: {
+                "Accept": 'application/json',
+                "mode": 'cors',
+                "Content-Type": "application/json",
+                "Content-Type": "text/plain"
+            },
+            // credentials: "include",
+            withCredentials: false
+        })
+        .then(response => response.json())
+        .then(data => {
+            return data // Prints result from `response.json()` in getRequest
+        })
+        .catch(error => console.error(error))
+    return allInd
+}

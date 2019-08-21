@@ -58,9 +58,9 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="http://localhost:3000/indicador/novo/" method="POST" name="formIndicador" id="formIndicador">
+                <form action="http://localhost:3000/indicador/novo/" method="POST">
                     <div class="modal-body">
-                        <!-- <input type="hidden" value="" id="chave" name="chave"> -->
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="modeloIndicador">Modelo:</label>
@@ -70,7 +70,7 @@
                                             <option value="barra">Barra</option>
                                             <option value="linha">Linha</option>
                                             <option value="pizza">Pizza</option>
-                                            <option value="velocimetro">Velocimetro</option>
+                                            <option value="pizza">Velocimetro</option>
                                         </select>
 
                         </div>
@@ -120,90 +120,8 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <!-- <a href="#" onclick="" class="btn btn-primary" name="btSalvarEdicao" id="btSalvarEdicao">Salvar</a> -->
+                        <a href="http://localhost:3000/indicadores" class="btn btn-primary">Salvar</a>
                         <button type="submit" class="btn btn-primary">submeter</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar Indicador -->
-    <div class="modal fade" id="ModalEditarIndicador" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="TituloModalCentralizado">Editar Indicador</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="http://localhost:3000/indicador/editar/" method="POST" name="formEditarIndicador" id="formEditarIndicador">
-                    <div class="modal-body">
-                        <input type="hidden" value="" id="chave" name="chave">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="editarModeloIndicador">Modelo:</label>
-                            </div>
-                            <select class="custom-select" id="editarModeloIndicador" name="editarModeloIndicador">
-                                            <option selected>Escolher...</option>
-                                            <option value="barra">Barra</option>
-                                            <option value="linha">Linha</option>
-                                            <option value="pizza">Pizza</option>
-                                            <option value="velocimetro">Velocimetro</option>
-                                        </select>
-
-                        </div>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="editarDescInd">Descrição Indicador:</label>
-                            </div>
-                            <input type="text" class="form-control" id="editarDescInd" name="editarDescInd" aria-label="Descrição do Indicador" aria-describedby="Descrição do Indicador">
-                        </div>
-                        <div class="input-group mb-3">
-
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="editarTitulo">Título:</label>
-                            </div>
-                            <input type="text" class="form-control" id="editarTitulo" name="editarTitulo" aria-label="Título do Indicador" aria-describedby="Título do Indicador">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="editarSubtitulo">Subtítulo:</label>
-                            </div>
-                            <input type="text" class="form-control" id="editarSubtitulo" name="editarSubtitulo" aria-label="Subtítulo do Indicador" aria-describedby="Subtítulo do Indicador">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" for="editarLargura">Largura:</span>
-                            </div>
-                            <input type="text" class="form-control" id="editarLargura" name="editarLargura" aria-label="Largura do Indicador" aria-describedby="Largura do Indicador">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Altura:</span>
-                            </div>
-                            <input type="text" class="form-control" id="editarAltura" name='editarAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Dados:</span>
-                            </div>
-                            <input type="text" class="form-control" id="editarDados" name='editarDados' aria-label="Função que busca os dados indicador" aria-describedby="função que busca os dados para o indicador. ">
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button onclick="salvarEdicao()">Salvar</button>
-                        <button type="submit" class="btn btn-primary">submeter</button>
-                        <a href="#" onclick="salvarEdicao()" class="btn btn-primary" name="btSalvarEdicao" id="btSalvarEdicao">Salvar</a>
                     </div>
                 </form>
             </div>

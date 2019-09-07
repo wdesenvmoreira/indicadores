@@ -46,7 +46,7 @@ function incluirDivLinha(dv) {
 function postarIndicador(indicadorNew, cabecalho, dados, opcoes) {
     var dv = novoContainer();
     incluirDivLinha(dv)
-        // indicadoresLinha(cabecalho, dados, opcoes, dv.id)
+
     indicadorNew(cabecalho, dados, opcoes, dv.id)
 }
 
@@ -63,8 +63,8 @@ function conteudoTabela(d) {
         tdkey.innerHTML = (campo['key'])
         tdtitulo.innerHTML = (campo.optionsInd.chart['title'])
         tdmodelo.innerHTML = (campo['modelo'])
-        tdedit.innerHTML = `<a href="#" onclick="editarIndicador(${campo['key']})" id=edit${campo['key']}  data-toggle="modal" data-target="#ModalEditarIndicador">E</a>`
-        tdexcluir.innerHTML = `<a href="#"  id=exlui${campo['key']}>X</a>`
+        tdedit.innerHTML = `<a href="#" onclick="editarIndicador(${campo['key']})"   id=edit${campo['key']}  data-toggle="modal" data-target="#ModalEditarIndicador">E</a>`
+        tdexcluir.innerHTML = `<a href="#" onclick="excluirIndicador(${campo['key']})"  id=exlui${campo['key']}>X</a>`
         tr.appendChild(tdkey)
         tr.appendChild(tdtitulo)
         tr.appendChild(tdmodelo)
@@ -108,7 +108,8 @@ function editarIndicador(chaveEdicao) {
             let editLargura = document.getElementById('editarLargura')
             let editAltura = document.getElementById('editarAltura')
             let editDados = document.getElementById('editarDados')
-            let key = document.getElementById('chave')
+            let chave = document.getElementById('chave')
+            let chaveIndicadora = document.getElementById('chaveIndicadora')
 
             modeloIndicador.value = campo['modelo']
             editDescInd.value = campo['DESC_INDICADOR']
@@ -117,7 +118,8 @@ function editarIndicador(chaveEdicao) {
             editAltura.value = campo['optionsInd'].height
             editLargura.value = campo['optionsInd'].width
             editDados.value = campo['buscarDados']
-            key.value = campo['key']
+            chave.value = campo['key']
+            chaveIndicadora.innerHTML = ' ' + campo['key']
         }
     });
 
@@ -133,9 +135,21 @@ function salvarEdicao() {
     // let editLargura = document.getElementById('editLargura')
     // let editAltura = document.getElementById('editAltura')
     // let editDados = document.getElementById('editDados')
+    let operacao = document.getElementById('operacao')
 
+    operacao.setAttribute('value', `editar`)
     let formIndicador = document.getElementById('formEditarIndicador')
     formIndicador.submit().then(document.location.reload(true))
         //allIndicadores()
         // document.location.reload(true);
+}
+
+function excluirIndicador(chave) {
+    let key = document.getElementById('chave')
+    key.value = chave
+    let formEditarIndicador = document.getElementById('formEditarIndicador')
+    let operacao = document.getElementById('operacao')
+    formIndicador.method = 'POST'
+    operacao.setAttribute('value', `excluir`)
+    formEditarIndicador.submit().then(document.location.reload())
 }

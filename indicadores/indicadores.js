@@ -34,7 +34,7 @@ function indicadorLinha() {
         data.addColumn('number', 'The Avengers');
         data.addColumn('number', 'Transformers: Age of Extinction');
 
-        var  d = await dadoslinha()
+        var d = await dadoslinha()
         data.addRows(d.dadosIndLinha);
 
         var options = {
@@ -149,32 +149,31 @@ function indicadorBarra() {
 }
 
 
-function criarDados(){
+function criarDados() {
     let options = {
-                    "modelo":document.getElementById("modeloIndicador").value,
-                    "buscarDados" :document.getElementById("editDados").value,
-                    "optionsInd" :
-                                 {
-                                    "chart": {
-                                                "title": document.getElementById("editTitulo").value,
-                                                "subtitle": document.getElementById("editSubtitulo").value
-                                            },
-                                    "width": document.getElementById("editLargura").value,
-                                    "height": document.getElementById("editAltura").value
-                                }           
-                    }
+        "modelo": document.getElementById("modeloIndicador").value,
+        "buscarDados": document.getElementById("editDados").value,
+        "optionsInd": {
+            "chart": {
+                "title": document.getElementById("editTitulo").value,
+                "subtitle": document.getElementById("editSubtitulo").value
+            },
+            "width": document.getElementById("editLargura").value,
+            "height": document.getElementById("editAltura").value
+        }
+    }
     return options
 }
 
 
 function verficarFuncaoIndicador(modeloIndicador) {
     switch (modeloIndicador) {
-        case "line":
+        case "linha":
             return indicadoresLinha
             break;
-       case "bar":
-           return indicadoresBarra
-           break;
+        case "bar":
+            return indicadoresBarra
+            break;
 
         default:
             break;
@@ -187,9 +186,9 @@ function verificarFuncaoBuscarDados(nomeFuncao) {
         case "dadoslinha":
             return dadoslinha()
             break;
-       case 2:
-           return indicadoresBarra
-           break;
+        case 2:
+            return indicadoresBarra
+            break;
 
         default:
             break;

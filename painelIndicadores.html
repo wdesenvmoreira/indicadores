@@ -133,7 +133,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="TituloModalCentralizado">Editar Indicador</h5>
+                    <h5 class="modal-title" id="TituloModalCentralizado">Editar Indicador:&nbsp; </h5>
+
+                    <h5 class="modal-title" id="chaveIndicadora"></h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -193,7 +196,7 @@
                             </div>
                             <input type="text" class="form-control" id="editarDados" name='editarDados' aria-label="Função que busca os dados indicador" aria-describedby="função que busca os dados para o indicador. ">
                         </div>
-
+                        <input type="hidden" value="excluir" id="operacao" name="operacao">
 
 
 
@@ -201,8 +204,6 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button onclick="salvarEdicao()">Salvar</button>
-                        <button type="submit" class="btn btn-primary">submeter</button>
                         <a href="#" onclick="salvarEdicao()" class="btn btn-primary" name="btSalvarEdicao" id="btSalvarEdicao">Salvar</a>
                     </div>
                 </form>
@@ -224,6 +225,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/indicadores/indicadores.js"></script>
     <script type="text/javascript" src="/indicadores/estrutura.js"></script>
+    <script type="text/javascript" src="http://localhost:3000/indicadores"></script>
 
     <script>
         preencherTabela()

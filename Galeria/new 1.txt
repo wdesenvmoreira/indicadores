@@ -1,0 +1,11 @@
+Verificar erro no processamento específico Madeira e Madeira. E verifica falha na atualização do coleto. 
+
+Necessário editar o processamento específico do Madeira e Madeira. 
+- Processamento foi executado sem problemas. 
+
+Coletores não foram atualizados. 
+ Vinicius informou que o 9600 foi atualizado. 
+ Os outros dois 9700 não foram atualizados. 
+  Após várias tentativas um coletor foi atualizado . 
+  Coletor não esta acessando em um computador. Não acessa remoto. Não acessa pasta remota. 
+  Em contato com T.I. da Dual Soluções foram feitas tentativas mas sem sucesso.

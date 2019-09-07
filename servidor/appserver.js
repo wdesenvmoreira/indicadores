@@ -3,14 +3,10 @@ var app = express()
 var port = 3000
 
 var cors = require('cors')
-    //var firebird = require('node-firebird');
-    //const conexao = require('../servidor/conexao.js')
-    //const conexaoInd = require('../servidor/conexaoInd.js')
-    //let options = conexao;
-    //let optionsInd = conexaoInd;
+
 let routerIndicador = express.Router();
-let indicadorRouter = require('../routes/indicadores.js')
 let executeIndicador = require('../controller/controllerExecutar.js')
+let newController = require('../controller/newController.js')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({
@@ -28,12 +24,6 @@ const allowCrossDomain = function(req, res, next) {
 
 app.use(allowCrossDomain);
 
-//var pool = firebird.pool(5, options);
-//var poolInd = firebird.pool(5, optionsInd);
-
-
-
-// app.use(cors())
 app.listen(port, () => {
     console.log(`Server started on port: 3000 appserver`);
 });
@@ -41,8 +31,11 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
     function fx(v) { return v }
     executeIndicador.localizarIndicador('select * from TBL_INDICADORES', fx, app)
+    var dados = executeIndicador.localizarIndicador('select * from TBL_INDICADORES', fx, app)
+    console.log('dados: ', dados)
     res.redirect('http://127.0.0.1:8887/dashboard.html')
 })
+
 app.get('/dashbord', (req, res) => {
     res.redirect('http://127.0.0.1:8887/dashboard.html');
 })
@@ -56,50 +49,49 @@ app.get('/router', (req, res) => {
 });
 
 routerIndicador.post('/novo', (req, res) => {
-        if (executeIndicador.incluir(req.body)) {
-            res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-        }
+    if (executeIndicador.incluir(req.body)) {
+        res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+    }
 
 
-    })
-    // routerIndicador.post('/editar/:key', (req, res) => {
-    //     if (executeIndicador.editarIndicador(req.params.key, req.body)) {
-    //         res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-    //     }
+})
 
-// })
 
 routerIndicador.post('/editar', (req, res) => {
-        if (executeIndicador.editarIndicador(req.body)) {
-            res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-        }
+    if (executeIndicador.editarIndicador(req.body, app)) {
 
-    })
-    //routerIndicador.get('/editar', (req, res) => {
-    // if (executeIndicador.editarIndicador(req.body)) {
-    //     res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-    // }
-    //res.send('valor com get: ');
-    //})
+
+        res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+    }
+
+})
+
 routerIndicador.get('/novo', (req, res) => {
-    // res.render(executeIndicador, req.params);
+
     res.send('Estudar mais get');
 })
 routerIndicador.get('/lista', (req, res) => {
-        function fx(v) { return v }
+    function fx(v) { return v }
 
-        res.send('Lista de indicadores', executeIndicador.localizarIndicador('select * from TBL_INDICADORES', fx, app));
+    res.send('Lista de indicadores', executeIndicador.localizarIndicador('select * from TBL_INDICADORES', fx, app));
 
 
-    })
-    // routerIndicador.get('/:key', (req, res) => {
-    //     function fx(v) { return v }
-    //     let SQL = `select * from TBL_INDICADORES where key= ${req.params.key}`
-    //     console.log('SQL:', SQL)
-    //     executeIndicador.localizarIndicadorPorKey(SQL, fx, app)
-    //     res.redirect('http://127.0.0.1:8887/edicaoIndicadores.html')
-    // });
+})
 
+app.get('/teste', async(req, res) => {
+    async function fx(v) { return v }
+    let vdados = executeIndicador.buscaIndicador('select * from TBL_INDICADORES', fx, app)
+
+    var Resultado;
+
+    Resultado = await vdados
+        .then((dados) => {
+            return dados;
+
+        });
+    console.log(Resultado);
+    console.log(Resultado[0])
+});
 app.use('/indicador', routerIndicador);
 
 module.exports = app

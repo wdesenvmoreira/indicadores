@@ -135,9 +135,7 @@ function salvarEdicao() {
     // let editDados = document.getElementById('editDados')
 
     let formIndicador = document.getElementById('formEditarIndicador')
-    formIndicador.submit()
-}
-
-function teste() {
-    alert("foi");
+    formIndicador.submit().then(document.location.reload(true))
+        //allIndicadores()
+        // document.location.reload(true);
 }

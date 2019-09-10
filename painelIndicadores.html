@@ -20,9 +20,29 @@
         </div>
 
         <div class="row">
-            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#ExemploModalCentralizado">
-            Criar Indicador
-        </button>
+
+            <div class="col">
+                <a href="http://127.0.0.1:8887/dashboard.html" class="btn btn-outline-dark">Dashboard</a>
+            </div>
+
+            <div class="col">
+                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#ExemploModalCentralizado">
+                    Criar Indicador
+                </button>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="editLocalizar">Localizar:</label>
+                    </div>
+                    <input type="text" class="form-control" id="editLocalizar" name="editLocalizar" aria-label="Localizar Indicador" aria-describedby="Localizar Indicador">
+
+                    <button type="button" onclick="localizarIndicador()" class="btn btn-outline-dark">
+                        Localizar
+                    </button>
+                </div>
+            </div>
         </div>
         </BR>
         <div class="row">
@@ -225,10 +245,10 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/indicadores/indicadores.js"></script>
     <script type="text/javascript" src="/indicadores/estrutura.js"></script>
-    <script type="text/javascript" src="http://localhost:3000/indicadores"></script>
+    <script type="text/javascript" src="http://localhost:3000/indicadores/"></script>
 
     <script>
-        preencherTabela()
+        preencherTabela(allIndicadores)
     </script>
 
 </body>

@@ -201,11 +201,19 @@ const editarIndicador = (dados, app) => {
 }
 
 
-let buscaIndicadores = function(SQL, funcaoExecute, app) {
+let buscaIndicadores = function(SQLParametro, funcaoExecute, app) {
+    let SQL = ''
+    if (SQLParametro.operacao == 'Todos') {
+        SQL = 'select * from TBL_INDICADORES'
+    } else
+    if (SQLParametro.operacao == 'chave') {
+        SQL = `select * from TBL_INDICADORES where key=${SQLParametro.condicao}`
+        console.log(SQL)
+    }
+
     return new Promise((resolve, reject) => {
 
-        //var daros
-        // Get a free pool
+
         poolInd.get(function(err, db) {
 
             if (err) {

@@ -194,3 +194,7 @@ function verificarFuncaoBuscarDados(nomeFuncao) {
             break;
     }
 }
+
+function localizarIndicador() {
+    preencherTabela(oneIndicadores)
+}

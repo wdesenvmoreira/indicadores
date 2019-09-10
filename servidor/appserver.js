@@ -25,24 +25,18 @@ const allowCrossDomain = function(req, res, next) {
 
 app.use(allowCrossDomain);
 app.use(cors({ credentials: true }));
+
 app.listen(port, () => {
     console.log(`Server started on port: 3000 appserver`);
 });
 
 app.get('/', (req, res) => {
     function fx(v) { return v }
-    executeIndicador.buscaIndicadores('select * from TBL_INDICADORES', fx, app)
+    SQLBuscaInd = { operacao: "chave", condicao: "12" }
+        // executeIndicador.buscaIndicadores('select * from TBL_INDICADORES', fx, app)
+    executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
     res.redirect('http://127.0.0.1:8887/dashboard.html')
 })
-
-app.get('/dashbord', (req, res) => {
-    res.redirect('http://127.0.0.1:8887/dashboard.html');
-})
-
-app.get('/painel-de-controle', (req, res) => {
-    res.redirect('http://127.0.0.1:8887/painelindicadores.html');
-})
-
 
 
 routerIndicador.post('/novo', (req, res) => {
@@ -100,18 +94,10 @@ routerIndicador.get('/listar/:url', (req, res) => {
 })
 
 
-app.post('/excluirIndicador/:chave', (req, res) => {
-    function fx(v) { return v }
-    console.log('chave para excluir: ', req.params.chave)
-    if (executeIndicador.excluirIndicador(req.params.chave, app)) {
-
-        res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-    }
-
-});
-
 app.get('/indicadores', async(req, res) => {
     async function fx(v) { return v }
+    // SQLBuscaInd = 'select * from TBL_INDICADORES'
+    SQLBuscaInd = { operacao: "Todos", condicao: " " }
     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
     var Resultado;
@@ -125,6 +111,42 @@ app.get('/indicadores', async(req, res) => {
     res.send(Resultado)
 
 });
+
+app.get('/indicadores/:condicoes', async(req, res) => {
+    let op = req.params.condicoes.slice(0, 5)
+    let dado = req.params.condicoes.slice(5, 9)
+        // if (req.params.condicoes == 'todos') {
+        //     SQLBuscaInd = { operacao: "Todos", condicao: "" }
+        // } else {
+        //     console.log('condicoes paramentro: ', JSON.stringify(req.params.condicoes))
+        //     SQLBuscaInd = { operacao: "chave", condicao: req.params.condicoes }
+        // }
+
+    if (op == 'todos') {
+        SQLBuscaInd = { operacao: "Todos", condicao: "" }
+    } else {
+        console.log('op: ', op)
+        console.log('dado:', dado)
+        SQLBuscaInd = { operacao: op, condicao: dado }
+    }
+    async function fx(v) { return v }
+    // SQLBuscaInd = 'select * from TBL_INDICADORES'
+
+    let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+
+    var Resultado;
+
+    Resultado = await vdados
+        .then((dados) => {
+            return dados;
+
+        });
+
+    res.send(Resultado)
+
+});
+
+
 app.use('/indicador', routerIndicador);
 
 module.exports = app

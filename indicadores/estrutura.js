@@ -76,9 +76,10 @@ function conteudoTabela(d) {
 }
 
 
-async function preencherTabela() {
+async function preencherTabela(funcaoBusca) {
     limparTabela()
-    var campo = await allIndicadores()
+        // var campo = await allIndicadores()
+    var campo = await funcaoBusca()
     conteudoTabela(campo)
     todosDados = campo
 }

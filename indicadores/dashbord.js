@@ -5,7 +5,7 @@ novoInd.addEventListener('click', () => {
 })
 
 async function postarInd() {
-
+    // var dados = await allIndicadores('todos')
     var dados = await allIndicadores()
     var dadoIndicadores = dados.indicadores
     dadoIndicadores.forEach(async function(campo, indice, arrayCompleta) {

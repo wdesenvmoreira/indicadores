@@ -17,7 +17,6 @@ async function dadosIndicadores() {
 
 
 async function allIndicadores() {
-
     let allInd = await fetch('http://localhost:3000/indicadores', {
             method: 'GET',
             headers: {
@@ -36,12 +35,12 @@ async function allIndicadores() {
         .catch(error => console.error(error))
     return allInd
 }
-async function oneIndicadores(key) {
-    console.log('localização: ', `http://localhost:3000/indicador/${key}`)
 
-    window.location.href = `http://localhost:3000/indicador/${key}`
-
-    let allInd = await fetch(`http://localhost:3000/indicador/${key}`, {
+async function oneIndicadores() {
+    let condica = document.getElementById('editLocalizar').value
+    let condicao = 'chave' + condica
+    console.log('condição: ', condicao)
+    let allInd = await fetch(`http://localhost:3000/indicadores/${condicao}`, {
             method: 'GET',
             headers: {
                 "Accept": 'application/json',

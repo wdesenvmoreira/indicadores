@@ -37,9 +37,10 @@ async function allIndicadores() {
 }
 
 async function oneIndicadores() {
-    let condica = document.getElementById('editLocalizar').value
-    let condicao = 'chave' + condica
-    console.log('condição: ', condicao)
+    let dadoBusca = document.getElementById('editLocalizar').value
+    let tipoBusca = document.getElementById('tipoBusca').value
+    let condicao = tipoBusca + dadoBusca
+
     let allInd = await fetch(`http://localhost:3000/indicadores/${condicao}`, {
             method: 'GET',
             headers: {

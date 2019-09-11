@@ -8,7 +8,8 @@ let routerIndicador = express.Router();
 let executeIndicador = require('../controller/controllerExecutar.js')
 let newController = require('../controller/newController.js')
 const bodyParser = require('body-parser')
-let SQLBuscaInd = 'select * from TBL_INDICADORES'
+    // let SQLBuscaInd = 'select * from TBL_INDICADORES'
+let SQLBuscaInd = ''
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -32,7 +33,7 @@ app.listen(port, () => {
 
 app.get('/', (req, res) => {
     function fx(v) { return v }
-    SQLBuscaInd = { operacao: "chave", condicao: "12" }
+    SQLBuscaInd = { operacao: "Todos", condicao: "" }
         // executeIndicador.buscaIndicadores('select * from TBL_INDICADORES', fx, app)
     executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
     res.redirect('http://127.0.0.1:8887/dashboard.html')
@@ -98,6 +99,7 @@ app.get('/indicadores', async(req, res) => {
     async function fx(v) { return v }
     // SQLBuscaInd = 'select * from TBL_INDICADORES'
     SQLBuscaInd = { operacao: "Todos", condicao: " " }
+
     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
     var Resultado;
@@ -115,22 +117,9 @@ app.get('/indicadores', async(req, res) => {
 app.get('/indicadores/:condicoes', async(req, res) => {
     let op = req.params.condicoes.slice(0, 5)
     let dado = req.params.condicoes.slice(5, 9)
-        // if (req.params.condicoes == 'todos') {
-        //     SQLBuscaInd = { operacao: "Todos", condicao: "" }
-        // } else {
-        //     console.log('condicoes paramentro: ', JSON.stringify(req.params.condicoes))
-        //     SQLBuscaInd = { operacao: "chave", condicao: req.params.condicoes }
-        // }
+    SQLBuscaInd = { operacao: op, condicao: dado }
 
-    if (op == 'todos') {
-        SQLBuscaInd = { operacao: "Todos", condicao: "" }
-    } else {
-        console.log('op: ', op)
-        console.log('dado:', dado)
-        SQLBuscaInd = { operacao: op, condicao: dado }
-    }
     async function fx(v) { return v }
-    // SQLBuscaInd = 'select * from TBL_INDICADORES'
 
     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
@@ -141,7 +130,7 @@ app.get('/indicadores/:condicoes', async(req, res) => {
             return dados;
 
         });
-
+    SQLBuscaInd = ''
     res.send(Resultado)
 
 });

@@ -205,10 +205,24 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute, app) {
     let SQL = ''
     if (SQLParametro.operacao == 'Todos') {
         SQL = 'select * from TBL_INDICADORES'
-    } else
-    if (SQLParametro.operacao == 'chave') {
-        SQL = `select * from TBL_INDICADORES where key=${SQLParametro.condicao}`
-        console.log(SQL)
+    } else {
+        if (SQLParametro.operacao == 'chave') {
+
+            SQL = `select * from TBL_INDICADORES where key=${SQLParametro.condicao}`
+
+        } else {
+            if (SQLParametro.operacao == 'descr') {
+
+                SQL = `select * from TBL_INDICADORES where desc_indicador like '%${SQLParametro.condicao}%'`
+
+            } else {
+                if (SQLParametro.operacao == 'model') {
+
+                    SQL = `select * from TBL_INDICADORES where modelo like '%${SQLParametro.condicao}%'`
+
+                }
+            }
+        }
     }
 
     return new Promise((resolve, reject) => {

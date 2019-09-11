@@ -21,20 +21,27 @@
 
         <div class="row">
 
-            <div class="col">
+            <div class="col-3">
                 <a href="http://127.0.0.1:8887/dashboard.html" class="btn btn-outline-dark">Dashboard</a>
             </div>
 
-            <div class="col">
+            <div class="col-3">
                 <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#ExemploModalCentralizado">
                     Criar Indicador
                 </button>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <div class="input-group mb-3">
 
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="editLocalizar">Localizar:</label>
+                        <select class="custom-select" id="tipoBusca" name="tipoBusca">
+                            <option selected>Todos</option>
+                            <option value="chave">Chave</option>
+                            <option value="descr">Descrição</option>
+                            <option value="model">Modelo</option>
+                            <option value="todos">Todos</option>
+                        </select>
                     </div>
                     <input type="text" class="form-control" id="editLocalizar" name="editLocalizar" aria-label="Localizar Indicador" aria-describedby="Localizar Indicador">
 
@@ -51,7 +58,8 @@
                     <tr>
                         <th scope="col">Key</th>
                         <th scope="col">Título</th>
-                        <th scope="col">Tipo</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Modelo</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Excluir</th>
                     </tr>
@@ -91,7 +99,7 @@
                                             <option value="linha">Linha</option>
                                             <option value="pizza">Pizza</option>
                                             <option value="velocimetro">Velocimetro</option>
-                                        </select>
+                            /select>
 
                         </div>
                         <div class="input-group mb-3">

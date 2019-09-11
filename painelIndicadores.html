@@ -253,10 +253,14 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/indicadores/indicadores.js"></script>
     <script type="text/javascript" src="/indicadores/estrutura.js"></script>
-    <script type="text/javascript" src="http://localhost:3000/indicadores/"></script>
+    <!-- <script type="text/javascript" src="http://localhost:3000/indicadores/"></script> -->
 
     <script>
-        preencherTabela(allIndicadores)
+        try {
+            preencherTabela(allIndicadores)
+        } catch (error) {
+            console.log("Erro: função preencherTabela - painelIndicadores.html")
+        }
     </script>
 
 </body>

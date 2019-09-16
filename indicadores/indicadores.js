@@ -171,8 +171,8 @@ function verficarFuncaoIndicador(modeloIndicador) {
         case "linha":
             return indicadoresLinha
             break;
-        case "bar":
-            return indicadoresBarra
+        case "barra":
+            return indicadorBarra
             break;
 
         default:
@@ -184,10 +184,18 @@ function verficarFuncaoIndicador(modeloIndicador) {
 function verificarFuncaoBuscarDados(nomeFuncao) {
     switch (nomeFuncao) {
         case "dadoslinha":
-            return dadoslinha()
+            try {
+                return dadoslinha()
+            } catch (error) {
+                console.log("Erro: ", error, 'Problemas na função VerificarFuncaoBuscarDados')
+            }
             break;
-        case 2:
-            return indicadoresBarra
+        case "indicadorBarra":
+            try {
+                return indicadorBarra()
+            } catch (error) {
+                console.log("Erro: ", error, 'Problemas na função VerificarFuncaoBuscarDados')
+            }
             break;
 
         default:

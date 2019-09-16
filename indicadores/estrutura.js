@@ -46,8 +46,12 @@ function incluirDivLinha(dv) {
 function postarIndicador(indicadorNew, cabecalho, dados, opcoes) {
     var dv = novoContainer();
     incluirDivLinha(dv)
+    try {
+        indicadorNew(cabecalho, dados, opcoes, dv.id)
+    } catch (error) {
+        console.log('Erro: ', error, ' - Problemas na funcão indicadorNew')
+    }
 
-    indicadorNew(cabecalho, dados, opcoes, dv.id)
 }
 
 function conteudoTabela(d) {
@@ -81,10 +85,14 @@ function conteudoTabela(d) {
 
 async function preencherTabela(funcaoBusca) {
     limparTabela()
-        // var campo = await allIndicadores()
-    var campo = await funcaoBusca()
-    conteudoTabela(campo)
-    todosDados = campo
+    try {
+        var campo = await funcaoBusca()
+        conteudoTabela(campo)
+        todosDados = campo
+    } catch (error) {
+        console.log('Erro: ', error, '- Problemas na função preencherTabela')
+    }
+
 }
 
 function limparTabela() {
@@ -98,54 +106,47 @@ function limparTabela() {
 
 function editarIndicador(chaveEdicao) {
     let dados = todosDados.indicadores
-    dados.forEach(function(campo, indice, arrayCompleta) {
-        if (campo['key'] == chaveEdicao) {
-            let formIndicador = document.getElementById('formEditarIndicador')
-            formIndicador.reset();
-            // formIndicador.method = 'PUT'
-            // formIndicador.action = `http://localhost:3000/indicador/editar`
-            document.getElementById('btSalvarEdicao').setAttribute('onclick', `salvarEdicao(${chaveEdicao})`)
-            let modeloIndicador = document.getElementById('editarModeloIndicador')
-            let editDescInd = document.getElementById('editarDescInd')
-            let editTitulo = document.getElementById('editarTitulo')
-            let editSubtitulo = document.getElementById('editarSubtitulo')
-            let editLargura = document.getElementById('editarLargura')
-            let editAltura = document.getElementById('editarAltura')
-            let editDados = document.getElementById('editarDados')
-            let chave = document.getElementById('chave')
-            let chaveIndicadora = document.getElementById('chaveIndicadora')
+    try {
+        dados.forEach(function(campo, indice, arrayCompleta) {
+            if (campo['key'] == chaveEdicao) {
+                let formIndicador = document.getElementById('formEditarIndicador')
+                formIndicador.reset();
+                document.getElementById('btSalvarEdicao').setAttribute('onclick', `salvarEdicao(${chaveEdicao})`)
+                let modeloIndicador = document.getElementById('editarModeloIndicador')
+                let editDescInd = document.getElementById('editarDescInd')
+                let editTitulo = document.getElementById('editarTitulo')
+                let editSubtitulo = document.getElementById('editarSubtitulo')
+                let editLargura = document.getElementById('editarLargura')
+                let editAltura = document.getElementById('editarAltura')
+                let editDados = document.getElementById('editarDados')
+                let chave = document.getElementById('chave')
+                let chaveIndicadora = document.getElementById('chaveIndicadora')
 
-            modeloIndicador.value = campo['modelo']
-            editDescInd.value = campo['DESC_INDICADOR']
-            editTitulo.value = campo['optionsInd'].chart.title
-            editSubtitulo.value = campo['optionsInd'].chart.subtitle
-            editAltura.value = campo['optionsInd'].height
-            editLargura.value = campo['optionsInd'].width
-            editDados.value = campo['buscarDados']
-            chave.value = campo['key']
-            chaveIndicadora.innerHTML = ' ' + campo['key']
-        }
-    });
+                modeloIndicador.value = campo['modelo']
+                editDescInd.value = campo['DESC_INDICADOR']
+                editTitulo.value = campo['optionsInd'].chart.title
+                editSubtitulo.value = campo['optionsInd'].chart.subtitle
+                editAltura.value = campo['optionsInd'].height
+                editLargura.value = campo['optionsInd'].width
+                editDados.value = campo['buscarDados']
+                chave.value = campo['key']
+                chaveIndicadora.innerHTML = ' ' + campo['key']
+            }
+        });
+    } catch (error) {
+        console.log('Erro: ', error, '- Problemas na função editarIndicador')
+    }
+
 
 
 }
 
 function salvarEdicao() {
-    // let formIndicador = document.getElementById('formIndicador')
-    // let modeloIndicador = document.getElementById('modeloIndicador')
-    // let editDescInd = document.getElementById('editDescInd')
-    // let editTitulo = document.getElementById('editTitulo')
-    // let editSubtitulo = document.getElementById('editSubtitulo')
-    // let editLargura = document.getElementById('editLargura')
-    // let editAltura = document.getElementById('editAltura')
-    // let editDados = document.getElementById('editDados')
     let operacao = document.getElementById('operacao')
 
     operacao.setAttribute('value', `editar`)
     let formIndicador = document.getElementById('formEditarIndicador')
     formIndicador.submit().then(document.location.reload(true))
-        //allIndicadores()
-        // document.location.reload(true);
 }
 
 function excluirIndicador(chave) {

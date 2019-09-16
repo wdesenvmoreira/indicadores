@@ -8,7 +8,7 @@ let routerIndicador = express.Router();
 let executeIndicador = require('../controller/controllerExecutar.js')
 let newController = require('../controller/newController.js')
 const bodyParser = require('body-parser')
-    // let SQLBuscaInd = 'select * from TBL_INDICADORES'
+
 let SQLBuscaInd = ''
 
 app.use(bodyParser.urlencoded({
@@ -28,14 +28,18 @@ app.use(allowCrossDomain);
 app.use(cors({ credentials: true }));
 
 app.listen(port, () => {
-    console.log(`Server started on port: 3000 appserver`);
+    console.log(`Iniciado servidor na porta: 3000 appserver`);
 });
 
 app.get('/', (req, res) => {
     function fx(v) { return v }
     SQLBuscaInd = { operacao: "Todos", condicao: "" }
-        // executeIndicador.buscaIndicadores('select * from TBL_INDICADORES', fx, app)
-    executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+    try {
+        executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+    } catch (error) {
+        console.log('Error: ', error, 'Erro ao executar o indicador')
+    }
+
     res.redirect('http://127.0.0.1:8887/dashboard.html')
 })
 
@@ -43,6 +47,8 @@ app.get('/', (req, res) => {
 routerIndicador.post('/novo', (req, res) => {
     if (executeIndicador.incluir(req.body, app)) {
         res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+    } else {
+        console.log('Error: ', error, 'Erro ao incluir indicador. ')
     }
 
 

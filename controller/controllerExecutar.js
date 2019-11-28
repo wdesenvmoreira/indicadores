@@ -10,7 +10,7 @@ var pool = firebird.pool(5, options);
 var poolInd = firebird.pool(5, optionsInd);
 
 
-function fx(v) { return v }
+
 
 
 const localizarIndicador = (SQL, funcaoExecute, app) => {
@@ -201,7 +201,7 @@ const editarIndicador = (dados, app) => {
 }
 
 
-let buscaIndicadores = function(SQLParametro, funcaoExecute, app) {
+let buscaIndicadores = function(SQLParametro, funcaoExecute) {
     let SQL = ''
     if (SQLParametro.operacao == 'Todos') {
         SQL = 'select * from TBL_INDICADORES'
@@ -224,7 +224,7 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute, app) {
             }
         }
     }
-
+    // console.log('select', SQL)
     return new Promise((resolve, reject) => {
 
 
@@ -260,7 +260,7 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute, app) {
 
                 //console.log('indicadores: ', indicadores)
 
-                app.use(cors({ credentials: true }));
+                // app.use(cors({ credentials: true }));
                 // app.get('/indicadores', (req, res) => {
                 //     res.json(indicadores);
 
@@ -270,6 +270,7 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute, app) {
                 db.detach();
 
                 resolve(indicadores);
+
             })
         });
     });

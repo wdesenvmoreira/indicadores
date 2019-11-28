@@ -1,51 +1,46 @@
-var express = require('express')
-var app = express()
-var port = 3000
+const express = require('express')
+const app = express()
+const port = 3000
 
-var cors = require('cors')
 let path = require('path')
 let routerIndicador = express.Router();
-let executeIndicador = require('../controller/controllerExecutar.js')
-let newController = require('../controller/newController.js')
+
+let GerentedeRotas = require('./routes/GerentedeRotas.js')
+let executeIndicador = require('./controller/controllerExecutar.js')
+let dadosIndicadores = require('./controller/controllerDadosIndicadores.js')
+
 const bodyParser = require('body-parser')
 
-
+app.use(express.static('public'))
+app.use(bodyParser.json())
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
 let SQLBuscaInd = ''
 
 app.use(bodyParser.urlencoded({
     extended: true
 }))
-app.use(express.static('public'))
-app.use(bodyParser.json())
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
 
-const allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    next();
-};
 
-app.use(allowCrossDomain);
-app.use(cors({ credentials: true }));
 
 app.listen(port, () => {
     console.log(`Iniciado servidor na porta: 3000 appserver`);
 });
 
-app.get('/', (req, res) => {
-    function fx(v) { return v }
-    SQLBuscaInd = { operacao: "Todos", condicao: "" }
-    try {
-        executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
-    } catch (error) {
-        console.log('Error: ', error, 'Erro ao executar o indicador')
+
+
+app.get('/listarIndicadores/:condicoes', (req, res) => {
+    let dados
+
+    console.log('tipobusca', req.params.condicoes)
+    if (req.params.condicoes == 'Todos') {
+        dados = dadosIndicadores.allIndicadores()
+        console.log('dados', dados)
     }
-    res.render('home');
-    // res.redirect('http://127.0.0.1:8887/dashboard.html')
-})
+
+    res.render('home', { 'dados': dados })
+});
 
 
 routerIndicador.post('/novo', (req, res) => {
@@ -107,7 +102,7 @@ routerIndicador.get('/listar/:url', (req, res) => {
 
 app.get('/indicadores', async(req, res) => {
     async function fx(v) { return v }
-    // SQLBuscaInd = 'select * from TBL_INDICADORES'
+    SQLBuscaInd = 'select * from TBL_INDICADORES'
     SQLBuscaInd = { operacao: "Todos", condicao: " " }
 
     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
@@ -141,11 +136,12 @@ app.get('/indicadores/:condicoes', async(req, res) => {
 
         });
     SQLBuscaInd = ''
-    res.send(Resultado)
+        //res.send(Resultado)
+    res.render('home', { 'dados': Resultado });
 
 });
 
-
-app.use('/indicador', routerIndicador);
+GerentedeRotas(app)
+    //app.use('/indicador', routerIndicador());
 
 module.exports = app

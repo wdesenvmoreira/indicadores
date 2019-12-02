@@ -2,7 +2,7 @@
 // Criando linhas do container principal, depois será acrescentado cada indicador à ultima linha
 //Depois disso será necessário criar a pagina de painel de controle. 
 // Depois o arquivo de inicialização. 
-let todosDados
+//let todosDados
 
 const primeDiv = document.getElementById('principalDiv')
 

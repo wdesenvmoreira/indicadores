@@ -224,7 +224,7 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute) {
             }
         }
     }
-    // console.log('select', SQL)
+    console.log('select:', SQL)
     return new Promise((resolve, reject) => {
 
 

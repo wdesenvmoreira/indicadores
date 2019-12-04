@@ -30,116 +30,116 @@ app.listen(port, () => {
 
 
 
-app.get('/listarIndicadores/:condicoes', (req, res) => {
-    let dados
+// app.get('/listarIndicadores/:condicoes', (req, res) => {
+//     let dados
 
-    console.log('tipobusca', req.params.condicoes)
-    if (req.params.condicoes == 'Todos') {
-        dados = dadosIndicadores.allIndicadores()
-        console.log('dados', dados)
-    }
+//     console.log('tipobusca', req.params.condicoes)
+//     if (req.params.condicoes == 'Todos') {
+//         dados = dadosIndicadores.allIndicadores()
+//         console.log('dados', dados)
+//     }
 
-    res.render('home', { 'dados': dados })
-});
-
-
-routerIndicador.post('/novo', (req, res) => {
-    if (executeIndicador.incluir(req.body, app)) {
-        res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-    } else {
-        console.log('Error: ', error, 'Erro ao incluir indicador. ')
-    }
+//     res.render('home', { 'dados': dados })
+// });
 
 
-})
+// routerIndicador.post('/novo', (req, res) => {
+//     if (executeIndicador.incluir(req.body, app)) {
+//         res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+//     } else {
+//         console.log('Error: ', error, 'Erro ao incluir indicador. ')
+//     }
 
 
-routerIndicador.post('/editar', (req, res) => {
-    function fx(v) { return v }
-    if (req.body.operacao == 'editar') {
-        if (executeIndicador.editarIndicador(req.body, app)) {
-            SQLBuscaInd = 'select * from TBL_INDICADORES where key = ' + req.body.chave
-            res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-        }
-    } else {
-        if (req.body.operacao == 'excluir') {
-            console.log('entrou no excluir:', req.body.chave)
-            executeIndicador.excluirIndicador(req.body.chave, app)
-
-            res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-
-        }
-
-    }
+// })
 
 
-})
+// routerIndicador.post('/editar', (req, res) => {
+//     function fx(v) { return v }
+//     if (req.body.operacao == 'editar') {
+//         if (executeIndicador.editarIndicador(req.body, app)) {
+//             SQLBuscaInd = 'select * from TBL_INDICADORES where key = ' + req.body.chave
+//             res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+//         }
+//     } else {
+//         if (req.body.operacao == 'excluir') {
+//             console.log('entrou no excluir:', req.body.chave)
+//             executeIndicador.excluirIndicador(req.body.chave, app)
+
+//             res.redirect('http://127.0.0.1:8887/painelindicadores.html')
+
+//         }
+
+//     }
 
 
-routerIndicador.get('/listar/:url', (req, res) => {
-    SQLBuscaInd = 'select * from TBL_INDICADORES'
-    app.get('/indicadores', async(req, res) => {
-        async function fx(v) { return v }
-        let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
-
-        var Resultado;
-
-        Resultado = await vdados
-            .then((dados) => {
-                return dados;
-
-            });
-
-        res.send(Resultado)
-    });
-    let newUrl = 'http://127.0.0.1:8887/' + req.params.url + '.html'
-    res.redirect(newUrl)
+// })
 
 
+// routerIndicador.get('/listar/:url', (req, res) => {
+//     SQLBuscaInd = 'select * from TBL_INDICADORES'
+//     app.get('/indicadores', async(req, res) => {
+//         async function fx(v) { return v }
+//         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
-})
+//         var Resultado;
+
+//         Resultado = await vdados
+//             .then((dados) => {
+//                 return dados;
+
+//             });
+
+//         res.send(Resultado)
+//     });
+//     let newUrl = 'http://127.0.0.1:8887/' + req.params.url + '.html'
+//     res.redirect(newUrl)
 
 
-app.get('/indicadores', async(req, res) => {
-    async function fx(v) { return v }
-    SQLBuscaInd = 'select * from TBL_INDICADORES'
-    SQLBuscaInd = { operacao: "Todos", condicao: " " }
 
-    let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+// })
 
-    var Resultado;
 
-    Resultado = await vdados
-        .then((dados) => {
-            return dados;
+// app.get('/indicadores', async(req, res) => {
+//     async function fx(v) { return v }
+//     SQLBuscaInd = 'select * from TBL_INDICADORES'
+//     SQLBuscaInd = { operacao: "Todos", condicao: " " }
 
-        });
+//     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
-    res.send(Resultado)
+//     var Resultado;
 
-});
+//     Resultado = await vdados
+//         .then((dados) => {
+//             return dados;
 
-app.get('/indicadores/:condicoes', async(req, res) => {
-    let op = req.params.condicoes.slice(0, 5)
-    let dado = req.params.condicoes.slice(5, 9)
-    SQLBuscaInd = { operacao: op, condicao: dado }
+//         });
 
-    async function fx(v) { return v }
+//     res.send(Resultado)
 
-    let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+// });
 
-    var Resultado;
+// app.get('/indicadores/:condicoes', async(req, res) => {
+//     let op = req.params.condicoes.slice(0, 5)
+//     let dado = req.params.condicoes.slice(5, 9)
+//     SQLBuscaInd = { operacao: op, condicao: dado }
 
-    Resultado = await vdados
-        .then((dados) => {
-            return dados;
+//     async function fx(v) { return v }
 
-        });
-    SQLBuscaInd = ''
-        //res.send(Resultado)
-    res.render('home', { 'dados': Resultado });
+//     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
-});
+//     var Resultado;
+
+//     Resultado = await vdados
+//         .then((dados) => {
+//             return dados;
+
+//         });
+//     SQLBuscaInd = ''
+//         //res.send(Resultado)
+//     res.render('home', { 'dados': Resultado });
+
+// });
 
 GerentedeRotas(app)
     //app.use('/indicador', routerIndicador());

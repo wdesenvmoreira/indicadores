@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/folha_comum.css">
+
+    <title>Painel de Controle</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Painel de Controle Indicadores</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-3">
+                <a href="http://127.0.0.1:8887/dashboard.html" class="btn btn-outline-dark">Dashboard</a>
+            </div>
+
+            <div class="col-3">
+                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#ExemploModalCentralizado">
+                    Criar Indicador
+                </button>
+            </div>
+            <div class="col-6">
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="editLocalizar">Localizar:</label>
+                        <select class="custom-select" id="tipoBusca" name="tipoBusca">
+                            <option selected>Todos</option>
+                            <option value="chave">Chave</option>
+                            <option value="descr">Descrição</option>
+                            <option value="model">Modelo</option>
+                            <option value="todos">Todos</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" id="editLocalizar" name="editLocalizar" aria-label="Localizar Indicador" aria-describedby="Localizar Indicador">
+
+                    <button type="button" onclick="localizarIndicador()" class="btn btn-outline-dark">
+                        Localizar
+                    </button>
+                </div>
+            </div>
+        </div>
+        </BR>
+        <div class="row">
+            <table class="table table-hover table-sm table-dark" id="tabela_indicadores" name="tabela_indicadores">
+                <thead>
+                    <tr>
+                        <th scope="col">Key</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody id='tablebody' name='tablebody'>
+
+                    <% dados.indicadores.forEach(indicador => { %>
+                        <tr>
+                            <td>
+                                <%= indicador.key %>
+                            </td>
+                            <td>
+                                <%= indicador.optionsInd.chart.title %>
+                            </td>
+                            <td>
+                                <%= indicador.DESC_INDICADOR %>
+                            </td>
+                            <td>
+                                <%= indicador.modelo %>
+                            </td>
+                            <td>
+                                <a href="#" onclick=editarIndicador(<%=indicador.key %>)   id=edit<%= indicador.key  %>   data-toggle="modal" data-target="#ModalEditarIndicador">E</a>
+                            </td>
+                            <td>
+                                <a href="#" onclick=excluirIndicador(<%=indicador.key %>)   id=exlui<%= indicador.key  %> >X</a>
+                            </td>
+                        </tr>
+                        <% }); %>
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+
+    <!-- Modals     -->
+    <!-- Modal Criar Indicador -->
+    <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloModalCentralizado">Novo Indicador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="http://localhost:3000/indicador/novo/" method="POST" name="formIndicador" id="formIndicador">
+                    <div class="modal-body">
+                        <!-- <input type="hidden" value="" id="chave" name="chave"> -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="modeloIndicador">Modelo:</label>
+                            </div>
+                            <select class="custom-select" id="modeloIndicador" name="modeloIndicador">
+                                            <option selected>Escolher...</option>
+                                            <option value="barra">Barra</option>
+                                            <option value="linha">Linha</option>
+                                            <option value="pizza">Pizza</option>
+                                            <option value="velocimetro">Velocimetro</option>
+                            </select>
+
+                        </div>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editDescInd">Descrição:</label>
+                            </div>
+                            <input type="text" class="form-control" id="editDescInd" name="editDescInd" aria-label="Descrição do Indicador" aria-describedby="Descrição do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editTitulo">Título:</label>
+                            </div>
+                            <input type="text" class="form-control" id="editTitulo" name="editTitulo" aria-label="Título do Indicador" aria-describedby="Título do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editSubtitulo">Subtítulo:</label>
+                            </div>
+                            <input type="text" class="form-control" id="editSubtitulo" name="editSubtitulo" aria-label="Subtítulo do Indicador" aria-describedby="Subtítulo do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Largura:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editLargura" name="editLargura" aria-label="Largura do Indicador" aria-describedby="Largura do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Altura:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editAltura" name='editAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Dados:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editDados" name='editDados' aria-label="Função que busca os dados indicador" aria-describedby="função que busca os dados para o indicador. ">
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <!-- <a href="#" onclick="" class="btn btn-primary" name="btSalvarEdicao" id="btSalvarEdicao">Salvar</a> -->
+                        <button type="submit" class="btn btn-primary">submeter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Indicador -->
+    <div class="modal fade" id="ModalEditarIndicador" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloModalCentralizado">Editar Indicador:&nbsp; </h5>
+
+                    <h5 class="modal-title" id="chaveIndicadora"></h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="http://localhost:3000/indicador/editar/" method="POST" name="formEditarIndicador" id="formEditarIndicador">
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="chave" name="chave">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editarModeloIndicador">Modelo:</label>
+                            </div>
+                            <select class="custom-select" id="editarModeloIndicador" name="editarModeloIndicador">
+                                            <option selected>Escolher...</option>
+                                            <option value="barra">Barra</option>
+                                            <option value="linha">Linha</option>
+                                            <option value="pizza">Pizza</option>
+                                            <option value="velocimetro">Velocimetro</option>
+                                        </select>
+
+                        </div>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editarDescInd">Descrição:</label>
+                            </div>
+                            <input type="text" class="form-control" id="editarDescInd" name="editarDescInd" aria-label="Descrição do Indicador" aria-describedby="Descrição do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editarTitulo">Título:</label>
+                            </div>
+                            <input type="text" class="form-control" id="editarTitulo" name="editarTitulo" aria-label="Título do Indicador" aria-describedby="Título do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="editarSubtitulo">Subtítulo:</label>
+                            </div>
+                            <input type="text" class="form-control" id="editarSubtitulo" name="editarSubtitulo" aria-label="Subtítulo do Indicador" aria-describedby="Subtítulo do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" for="editarLargura">Largura:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editarLargura" name="editarLargura" aria-label="Largura do Indicador" aria-describedby="Largura do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Altura:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editarAltura" name='editarAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Dados:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editarDados" name='editarDados' aria-label="Função que busca os dados indicador" aria-describedby="função que busca os dados para o indicador. ">
+                        </div>
+                        <input type="hidden" value="excluir" id="operacao" name="operacao">
+
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <a href="#" onclick="salvarEdicao()" class="btn btn-primary" name="btSalvarEdicao" id="btSalvarEdicao">Salvar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- <script type="text/javascript" src="/dist/js/dashbord.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <!-- <script type="text/javascript" src="indicadores/dados.json"></script> -->
+    <script type="text/javascript" src="/dist/js/bddados.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/dist/js/indicadores.js"></script>
+    <script type="text/javascript" src="/dist/js/estrutura.js"></script>
+    <!-- <script type="text/javascript" src="http://localhost:3000/indicadores/"></script> -->
+
+    <script type="text/javascript">
+        // try {
+        //     preencherTabela(allIndicadores)
+        // } catch (error) {
+        //     console.log("Erro: função preencherTabela - painelIndicadores.html")
+        // }
+    </script>
+
+</body>
+
+</html>

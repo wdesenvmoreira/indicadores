@@ -9,7 +9,7 @@ async function dadoslinha() {
 }
 
 async function dadosIndicadores() {
-    var urlx = 'http://127.0.0.1:8887/indicadores'
+    var urlx = 'http://localhost:3000/indicadoresapi'
     return fetch(urlx)
         .then(res => res.json())
         .then(json => { return json })
@@ -41,7 +41,7 @@ async function oneIndicadores() {
     let tipoBusca = document.getElementById('tipoBusca').value
     let condicao = tipoBusca + dadoBusca
 
-    let allInd = await fetch(`http://localhost:3000/indicadores/${condicao}`, {
+    let allInd = await fetch(`http://localhost:3000/indicadoresapi/${condicao}`, {
             method: 'GET',
             headers: {
                 "Accept": 'application/json',

@@ -83,6 +83,53 @@
 
 
      })
+
+     app.post('/indicador/novo', (req, res) => {
+         if (executeIndicador.incluir(req.body, app)) {
+             res.redirect('http://localhost:3000/indicadores')
+         } else {
+             console.log('Error: ', error, 'Erro ao incluir indicador. ')
+         }
+
+
+     })
+
+     app.get('/listarIndicadores/:condicoes', (req, res) => {
+         let dados
+
+         console.log('tipobusca', req.params.condicoes)
+         if (req.params.condicoes == 'Todos') {
+             dados = dadosIndicadores.allIndicadores()
+             console.log('dados', dados)
+         }
+
+         res.render('home', { 'dados': dados })
+     });
+
+
+
+     app.get('/indicadores/:condicoes', async(req, res) => {
+         let op = req.params.condicoes.slice(0, 5)
+         let dado = req.params.condicoes.slice(5, 9)
+         SQLBuscaInd = { operacao: op, condicao: dado }
+
+         async function fx(v) { return v }
+
+         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+
+         var Resultado;
+
+         Resultado = await vdados
+             .then((dados) => {
+                 return dados;
+
+             });
+         SQLBuscaInd = ''
+             //res.send(Resultado)
+         res.render('home', { 'dados': Resultado });
+
+     });
+
  }
 
  module.exports = indicadoresRota

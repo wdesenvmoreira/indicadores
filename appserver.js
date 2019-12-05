@@ -30,50 +30,13 @@ app.listen(port, () => {
 
 
 
-// app.get('/listarIndicadores/:condicoes', (req, res) => {
-//     let dados
-
-//     console.log('tipobusca', req.params.condicoes)
-//     if (req.params.condicoes == 'Todos') {
-//         dados = dadosIndicadores.allIndicadores()
-//         console.log('dados', dados)
-//     }
-
-//     res.render('home', { 'dados': dados })
-// });
 
 
-// routerIndicador.post('/novo', (req, res) => {
-//     if (executeIndicador.incluir(req.body, app)) {
-//         res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-//     } else {
-//         console.log('Error: ', error, 'Erro ao incluir indicador. ')
-//     }
 
 
-// })
 
 
-// routerIndicador.post('/editar', (req, res) => {
-//     function fx(v) { return v }
-//     if (req.body.operacao == 'editar') {
-//         if (executeIndicador.editarIndicador(req.body, app)) {
-//             SQLBuscaInd = 'select * from TBL_INDICADORES where key = ' + req.body.chave
-//             res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-//         }
-//     } else {
-//         if (req.body.operacao == 'excluir') {
-//             console.log('entrou no excluir:', req.body.chave)
-//             executeIndicador.excluirIndicador(req.body.chave, app)
 
-//             res.redirect('http://127.0.0.1:8887/painelindicadores.html')
-
-//         }
-
-//     }
-
-
-// })
 
 
 // routerIndicador.get('/listar/:url', (req, res) => {
@@ -119,27 +82,6 @@ app.listen(port, () => {
 
 // });
 
-// app.get('/indicadores/:condicoes', async(req, res) => {
-//     let op = req.params.condicoes.slice(0, 5)
-//     let dado = req.params.condicoes.slice(5, 9)
-//     SQLBuscaInd = { operacao: op, condicao: dado }
-
-//     async function fx(v) { return v }
-
-//     let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
-
-//     var Resultado;
-
-//     Resultado = await vdados
-//         .then((dados) => {
-//             return dados;
-
-//         });
-//     SQLBuscaInd = ''
-//         //res.send(Resultado)
-//     res.render('home', { 'dados': Resultado });
-
-// });
 
 GerentedeRotas(app)
     //app.use('/indicador', routerIndicador());

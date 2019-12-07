@@ -114,6 +114,32 @@
          SQLBuscaInd = { operacao: op, condicao: dado }
 
          async function fx(v) { return v }
+         console.log(SQLBuscaInd)
+         console.log('parametro', req.params.condicoes)
+         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
+
+         var Resultado;
+
+         Resultado = await vdados
+             .then((dados) => {
+                 return dados;
+
+             });
+         SQLBuscaInd = ''
+             //res.send(Resultado)
+         console.log('Resultado:', Resultado)
+         res.render('painelIndicadores', { 'dados': Resultado })
+
+
+     });
+
+     app.get('/indicador/localizar', async(req, res) => {
+         let op = req.query.tipoBusca
+         let dado = req.query.editLocalizar
+         SQLBuscaInd = { operacao: op, condicao: dado }
+         console.log('body', req.query.tipoBusca)
+         async function fx(v) { return v }
+         console.log(SQLBuscaInd)
 
          let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
@@ -126,7 +152,9 @@
              });
          SQLBuscaInd = ''
              //res.send(Resultado)
-         res.render('home', { 'dados': Resultado });
+         console.log('Resultado:', Resultado)
+         res.render('painelIndicadores', { 'dados': Resultado })
+
 
      });
 

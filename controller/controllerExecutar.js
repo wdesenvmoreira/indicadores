@@ -202,6 +202,7 @@ const editarIndicador = (dados, app) => {
 
 
 let buscaIndicadores = function(SQLParametro, funcaoExecute) {
+    console.log('selectParametro:', SQLParametro)
     let SQL = ''
     if (SQLParametro.operacao == 'Todos') {
         SQL = 'select * from TBL_INDICADORES'
@@ -220,6 +221,11 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute) {
 
                     SQL = `select * from TBL_INDICADORES where modelo like '%${SQLParametro.condicao}%'`
 
+                } else {
+                    if (SQLParametro.operacao == 'title') {
+
+                        SQL = `select * from TBL_INDICADORES where title like '%${SQLParametro.condicao}%'`
+                    }
                 }
             }
         }

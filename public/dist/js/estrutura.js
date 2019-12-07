@@ -87,6 +87,7 @@ async function preencherTabela(funcaoBusca) {
     limparTabela()
     try {
         var campo = await funcaoBusca()
+        console.log('campo preencher tabela. :', campo)
         conteudoTabela(campo)
         todosDados = campo
     } catch (error) {

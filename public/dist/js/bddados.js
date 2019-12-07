@@ -41,7 +41,7 @@ async function oneIndicadores() {
     let tipoBusca = document.getElementById('tipoBusca').value
     let condicao = tipoBusca + dadoBusca
 
-    let allInd = await fetch(`http://localhost:3000/indicadoresapi/${condicao}`, {
+    let allInd = await fetch(`http://localhost:3000/indicadores/${condicao}`, {
             method: 'GET',
             headers: {
                 "Accept": 'application/json',

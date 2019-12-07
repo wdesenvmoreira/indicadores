@@ -32,22 +32,26 @@
             </div>
             <div class="col-6">
                 <div class="input-group mb-3">
+                    <form action="http://localhost:3000/indicador/localizar" method="GET" name="formIndicadorLocalizar" id="formIndicadorLocalizar">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="editLocalizar">Localizar:</label>
+                            <select class="custom-select" id="tipoBusca" name="tipoBusca">
+                                    <option >Todos</option>
+                                    <option value="chave">Chave</option>
+                                    <option value="descr">Descrição</option>
+                                    <option value="model">Modelo</option>
+                                    <option value="title">Titulo</option>
+                                </select>
+                        </div>
+                        <input type="text" class="form-control" id="editLocalizar" name="editLocalizar" aria-label="Localizar Indicador" aria-describedby="Localizar Indicador">
 
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="editLocalizar">Localizar:</label>
-                        <select class="custom-select" id="tipoBusca" name="tipoBusca">
-                            <option selected>Todos</option>
-                            <option value="chave">Chave</option>
-                            <option value="descr">Descrição</option>
-                            <option value="model">Modelo</option>
-                            <option value="todos">Todos</option>
-                        </select>
-                    </div>
-                    <input type="text" class="form-control" id="editLocalizar" name="editLocalizar" aria-label="Localizar Indicador" aria-describedby="Localizar Indicador">
-
-                    <button type="button" onclick="localizarIndicador()" class="btn btn-outline-dark">
-                        Localizar
-                    </button>
+                        <button type="button" onclick="localizarIndicador()" class="btn btn-outline-dark">
+                                Localizar
+                            </button>
+                        <button type="submit" onclick="" class="btn btn-outline-dark">
+                                Localizar sub
+                            </button>
+                    </form>
                 </div>
             </div>
         </div>

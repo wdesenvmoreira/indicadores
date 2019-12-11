@@ -21,38 +21,38 @@
 
         <div class="row">
 
-            <div class="col-3">
-                <a href="http://127.0.0.1:8887/dashboard.html" class="btn btn-outline-dark">Dashboard</a>
+            <div class="col-2">
+                <a href="http://localhost:3000/" class="btn btn-outline-dark">Dashboard</a>
             </div>
 
-            <div class="col-3">
+            <div class="col-2">
                 <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#ExemploModalCentralizado">
                     Criar Indicador
                 </button>
             </div>
-            <div class="col-6">
-                <div class="input-group mb-3">
-                    <form action="http://localhost:3000/indicador/localizar" method="GET" name="formIndicadorLocalizar" id="formIndicadorLocalizar">
+            <div class="col-8">
+                <form action="http://localhost:3000/indicador/localizar" method="GET" name="formIndicadorLocalizar" id="formIndicadorLocalizar">
+                    <div class="input-group mb-3">
+
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="editLocalizar">Localizar:</label>
+                            <!-- <label class="input-group-text" for="editLocalizar">Localizar:</label> -->
                             <select class="custom-select" id="tipoBusca" name="tipoBusca">
                                     <option >Todos</option>
                                     <option value="chave">Chave</option>
                                     <option value="descr">Descrição</option>
                                     <option value="model">Modelo</option>
-                                    <option value="title">Titulo</option>
+                                    <!-- <option value="title">Titulo</option> -->
                                 </select>
                         </div>
                         <input type="text" class="form-control" id="editLocalizar" name="editLocalizar" aria-label="Localizar Indicador" aria-describedby="Localizar Indicador">
 
-                        <button type="button" onclick="localizarIndicador()" class="btn btn-outline-dark">
+
+                        <button type="submit" onclick="" class="btn btn-outline-dark">
                                 Localizar
                             </button>
-                        <button type="submit" onclick="" class="btn btn-outline-dark">
-                                Localizar sub
-                            </button>
-                    </form>
-                </div>
+
+                    </div>
+                </form>
             </div>
         </div>
         </BR>
@@ -161,6 +161,12 @@
                                 <span class="input-group-text">Altura:</span>
                             </div>
                             <input type="text" class="form-control" id="editAltura" name='editAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Cabeçalho:</span>
+                            </div>
+                            <input type="text" class="form-control" id="editCabecalho" name='editCabecalho' aria-label="Cabeçalho do indicador" aria-describedby="Cabeçalho do indicador. ">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

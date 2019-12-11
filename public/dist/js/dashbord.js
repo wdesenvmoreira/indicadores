@@ -1,6 +1,7 @@
 const novoInd = document.getElementById('btNovoInd')
 
 novoInd.addEventListener('click', () => {
+
     postarInd()
 })
 
@@ -9,11 +10,12 @@ async function postarInd() {
     var dados = await allIndicadores()
     var dadoIndicadores = dados.indicadores
     try {
-        dadoIndicadores.forEach(async function(campo, indice, arrayCompleta) {
+        dadoIndicadores.forEach(async function(campo) {
             var funcaoDados = verficarFuncaoIndicador(campo.modelo)
             let funcaoBuscaDados = await verificarFuncaoBuscarDados(campo.buscarDados)
             var dadosInd = funcaoBuscaDados.dadosIndLinha
-            var cabecalho = funcaoBuscaDados.cabecalho
+                // var cabecalho = funcaoBuscaDados.cabecalho
+            var cabecalho = campo.optionsInd.cabecalho
             postarIndicador(funcaoDados, cabecalho, dadosInd, campo.optionsInd)
         })
     } catch (error) {

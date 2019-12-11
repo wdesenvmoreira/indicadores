@@ -113,6 +113,13 @@ const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
 
 const incluir = (dados, app) => {
 
+    let cabecalhoArray = dados.editCabecalho.split(" ")
+        // let cab = cabecalhoArray.map((campo) => {        ["number", campo] })
+    let cab = []
+    cabecalhoArray.forEach(element => {
+        cab.push(["number", element])
+    });
+
     console.log('Dentro de incluir')
     firebird.attach(optionsInd, function(err, db) {
         var optionsIndicador = {
@@ -121,7 +128,8 @@ const incluir = (dados, app) => {
                 "subtitle": `${dados.editSubtitulo}`
             },
             "width": dados.editLargura,
-            "height": dados.editAltura
+            "height": dados.editAltura,
+            "cabecalho": cab
 
         }
 
@@ -220,13 +228,13 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute) {
                 if (SQLParametro.operacao == 'model') {
 
                     SQL = `select * from TBL_INDICADORES where modelo like '%${SQLParametro.condicao}%'`
-
-                } else {
-                    if (SQLParametro.operacao == 'title') {
-
-                        SQL = `select * from TBL_INDICADORES where title like '%${SQLParametro.condicao}%'`
-                    }
                 }
+                // } else {
+                //     if (SQLParametro.operacao == 'title') {
+
+                //         SQL = `select * from TBL_INDICADORES where title like '%${SQLParametro.condicao}%'`
+                //     }
+                // }
             }
         }
     }

@@ -1,16 +1,13 @@
 var express = require('express')
 var app = express()
-var port = 3000
 var firebird = require('node-firebird')
-let dados
-    // const connection = express.Router()
 
 const conexao = () => {
     var options = {};
 
     options.host = 'NOTE-0097';
     options.port = 3054;
-    options.database = 'C:/Tek-system/Dados/DADOSMC.FDB';
+    options.database = 'C:/Tek-system/Dados/DATATESTE.FDB';
     // options.database = 'C:/TEK-SYSTEM/DADOS/DADOSMC.fdb';
     options.user = 'SYSDBA';
     options.password = 'masterkey';
@@ -20,7 +17,5 @@ const conexao = () => {
 
     return options
 }
-
-
 
 module.exports = conexao()

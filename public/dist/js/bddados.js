@@ -1,5 +1,5 @@
 async function dadoslinha() {
-    let allInd = await fetch('http://127.0.0.1:8887/indicadores/dados.json')
+    let allInd = await fetch('/dist/js/dados.json')
         .then(response => response.json())
         .then(data => {
             return data // Prints result from `response.json()` in getRequest

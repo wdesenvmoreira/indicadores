@@ -16,20 +16,19 @@
 
 <body>
     <h1>DASHBORD</h1>
-    <div class="container " id="principalDiv ">
+    <div class="container " name="principalDiv" id="principalDiv">
         <div class="row ">
-            <form action="http://localhost:3000/listarIndicadores/" method="GET">
+            <!-- <form action="http://localhost:3000/listarIndicadores/" method="GET"> -->
 
-                <input type="hidden" name="tipobusca" id="tipobusca" value="Todos">
-                <button type="button " class="btn btn-outline-dark " id="btNovoInd ">Novo Indicador</button>
-                <a href="http://localhost:3000/listarIndicadores/Todos" class="btn btn-outline-dark ">Listar Indicadores</a>
-                <a href="http://127.0.0.1:8887/painelindicadores.html " class="btn btn-outline-dark ">Painel de Controle</a>
-                <button type="submit">submeter</button>
-                </br>
-            </form>
+            <input type="hidden" name="tipobusca" id="tipobusca" value="Todos">
+            <button type="button " class="btn btn-outline-dark " name="btNovoInd" id="btNovoInd">Novo Indicador</button>
+            <a href="http://localhost:3000/indicadores/" class="btn btn-outline-dark ">Painel de Controle</a>
+            <button type="submit">submeter</button>
+            </br>
+            <!-- </form> -->
         </div>
         <div class="row linhasPrincipal ">
-            <%=  dados%>
+
         </div>
     </div>
 
@@ -37,13 +36,12 @@
     <script src="../../dist/js/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1 " crossorigin="anonymous "></script>
     <script src="../../dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM " crossorigin="anonymous "></script>
     <!-- Optional JavaScript -->
-    <script type="aplication/javascript " src="indicadores/dados.json "></script>
-    <!-- <script type="aplication/javascript " src="indicadores/bddados.js "></script> -->
+    <!-- <script type="aplication/javascript " src="indicadores/dados.json "></script> -->
     <script type="text/javascript " src="https://www.gstatic.com/charts/loader.js "></script>
-    <!-- <script type="text/javascript " src="/indicadores/indicadores.js "></script>
-    <script type="text/javascript " src="/indicadores/estrutura.js "></script>
-    <script type="text/javascript " src="/indicadores/dashbord.js "></script>
-    <script type="text/javascript " src="/indicadores/bddados.js "></script> -->
+    <script type="text/javascript " src="/dist/js/indicadores.js "></script>
+    <script type="text/javascript " src="/dist/js/estrutura.js "></script>
+    <script type="text/javascript " src="/dist/js/dashbord.js "></script>
+    <script type="text/javascript " src="/dist/js/bddados.js "></script>
 
 
 

@@ -4,16 +4,17 @@ var buscarDados = require('../controller/controllerDados.js')
 dadosRota = (app) => {
     app.get('/dados', async(req, res) => {
 
+        //SQL, Pontos, tipo de dados
 
         var SQL = `select
         df.cliente_docfat,
         cliente.razaosocial_pessoa,
-        sum(df.vlrliquido_docfat),
+        iif( sum(df.vlrliquido_docfat) <> 0, sum(df.vlrliquido_docfat), 0 ) total,
         extract(month from df.dtemissao_docfat) mes,
         extract(year from df.dtemissao_docfat) ano
       from documento_fatura df
       left join pessoa  cliente  on (cliente.codigo_pessoa = df.cliente_docfat)
-      where df.dtemissao_docfat between '01/01/2019' and '12/31/2019' and cliente.codigo_pessoa in(1,100,2000) and extract(month from df.dtemissao_docfat)in (1,2,3)
+      where df.dtemissao_docfat between '01/01/2019' and '12/31/2019' and cliente.codigo_pessoa in(1,100,2000) 
         group by 5,4,2,1`
 
         let vdados = buscarDados.buscarDados(SQL)
@@ -29,37 +30,34 @@ dadosRota = (app) => {
         let dadosIndicador = [
             [1],
             [2],
-            [3]
+            [3],
+            [4],
+            [5],
+            [6],
+            [7],
+            [8],
+            [9],
+            [10],
+            [11],
+            [12],
         ]
-        let i = 1
-
-
-
-
-        // for (let index = 1; index < dadosIndicador.length; index++) {
-        // indVetor.length = 0
-        // const e = Resultado[index];
-        // let indVetor = [i]
-        // indVetor.push(i)
 
         Resultado.forEach(element => {
-            dadosIndicador[element.MES - 1].push(element.SUM)
+            dadosIndicador[element.MES - 1].push(element.TOTAL)
 
-
-            // if (element.MES == index) {
-            //     // indVetor.push(element.SUM)
-            //     if (index < 4) {
-            //         console.log('index:', index)
-            //         dadosIndicador[index - 1].push(element.SUM)
-            //         console.log('index-1:', index - 1)
-            //     }
-
-            // }
-            // dadosIndicador.push(indVetor)
         })
 
-        i++
-        // }
+
+        for (let index = 0; index < dadosIndicador.length; index++) {
+
+            for (let j = 1; j < 4; j++) {
+                if (!dadosIndicador[index][j]) {
+                    dadosIndicador[index][j] = 0
+                }
+
+            }
+
+        }
         console.log('dadosIndicador em rotas:', dadosIndicador)
 
 

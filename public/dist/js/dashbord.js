@@ -13,8 +13,10 @@ async function postarInd() {
         dadoIndicadores.forEach(async function(campo) {
             var funcaoDados = verficarFuncaoIndicador(campo.modelo)
             let funcaoBuscaDados = await verificarFuncaoBuscarDados(campo.buscarDados)
-            var dadosInd = funcaoBuscaDados.dadosIndLinha
+                // var dadosInd = funcaoBuscaDados.dadosIndLinha
+            var dadosInd = funcaoBuscaDados
                 // var cabecalho = funcaoBuscaDados.cabecalho
+            console.log('dados:', dadosInd)
             var cabecalho = campo.optionsInd.cabecalho
             postarIndicador(funcaoDados, cabecalho, dadosInd, campo.optionsInd)
         })

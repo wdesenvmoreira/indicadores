@@ -3,11 +3,7 @@ var buscarDados = require('../controller/controllerDados.js')
 
 dadosRota = (app) => {
     app.get('/dados', async(req, res) => {
-        let op = 'Todos'
-        let dado = ''
-        SQLBuscaInd = { operacao: op, condicao: dado }
 
-        async function fx(v) { return v }
 
         var SQL = `select
         df.cliente_docfat,
@@ -17,7 +13,7 @@ dadosRota = (app) => {
         extract(year from df.dtemissao_docfat) ano
       from documento_fatura df
       left join pessoa  cliente  on (cliente.codigo_pessoa = df.cliente_docfat)
-      where df.dtemissao_docfat between '01/01/2018' and '12/31/2018' and cliente.codigo_pessoa = 1
+      where df.dtemissao_docfat between '01/01/2019' and '12/31/2019' and cliente.codigo_pessoa in(1,100,2000) and extract(month from df.dtemissao_docfat)in (1,2,3)
         group by 5,4,2,1`
 
         let vdados = buscarDados.buscarDados(SQL)
@@ -29,9 +25,45 @@ dadosRota = (app) => {
                 return dados;
 
             });
-        SQLBuscaInd = ''
-            // res.render('home', { 'dados': JSON.stringify(Resultado) })
-        res.send(Resultado);
+        console.log('Resultado em rotoas:', Resultado)
+        let dadosIndicador = [
+            [1],
+            [2],
+            [3]
+        ]
+        let i = 1
+
+
+
+
+        // for (let index = 1; index < dadosIndicador.length; index++) {
+        // indVetor.length = 0
+        // const e = Resultado[index];
+        // let indVetor = [i]
+        // indVetor.push(i)
+
+        Resultado.forEach(element => {
+            dadosIndicador[element.MES - 1].push(element.SUM)
+
+
+            // if (element.MES == index) {
+            //     // indVetor.push(element.SUM)
+            //     if (index < 4) {
+            //         console.log('index:', index)
+            //         dadosIndicador[index - 1].push(element.SUM)
+            //         console.log('index-1:', index - 1)
+            //     }
+
+            // }
+            // dadosIndicador.push(indVetor)
+        })
+
+        i++
+        // }
+        console.log('dadosIndicador em rotas:', dadosIndicador)
+
+
+        res.send(dadosIndicador);
     })
 
     // app.get('/indicadores', async(req, res) => {

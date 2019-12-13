@@ -1,5 +1,6 @@
 async function dadoslinha() {
-    let allInd = await fetch('/dist/js/dados.json')
+    // let allInd = await fetch('/dist/js/dados.json')
+    let allInd = await fetch('http://localhost:3000/dados')
         .then(response => response.json())
         .then(data => {
             return data // Prints result from `response.json()` in getRequest

@@ -11,14 +11,17 @@ async function postarInd() {
     var dadoIndicadores = dados.indicadores
     try {
         dadoIndicadores.forEach(async function(campo) {
-            var funcaoDados = verficarFuncaoIndicador(campo.modelo)
+            //Pelo modelo verifica qual função para plotar indicador irá usar. 
+            var funcaoIndicador = verficarFuncaoIndicador(campo.modelo)
+
+            // No indicador verifica qual função de buscar os dados. 
             let funcaoBuscaDados = await verificarFuncaoBuscarDados(campo.buscarDados)
                 // var dadosInd = funcaoBuscaDados.dadosIndLinha
             var dadosInd = funcaoBuscaDados
                 // var cabecalho = funcaoBuscaDados.cabecalho
             console.log('dados:', dadosInd)
             var cabecalho = campo.optionsInd.cabecalho
-            postarIndicador(funcaoDados, cabecalho, dadosInd, campo.optionsInd)
+            postarIndicador(funcaoIndicador, cabecalho, dadosInd, campo.optionsInd)
         })
     } catch (error) {
         console.log('Erro:', error, 'Erro em: funcao postarInd - indicadores/dashbord.js')

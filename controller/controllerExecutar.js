@@ -62,7 +62,7 @@ const localizarIndicador = (SQL, funcaoExecute, app) => {
     });
 }
 
-const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
+const localizarIndicadorPorKey = (SQL) => {
     var daros
         // Get a free pool
     poolInd.get(function(err, db) {
@@ -75,13 +75,12 @@ const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
         // db = DATABASE
         db.query(SQL, async function(err, result) {
 
-            daros = await funcaoExecute(result)
 
             var indicador = []
             var indicadores = { "indicadores": null }
 
 
-            daros.forEach(element => {
+            result.forEach(element => {
                 var objDados = new Object()
                 objDados.key = element.KEY
                 objDados.DESC_INDICADOR = element.DESC_INDICADOR
@@ -96,18 +95,24 @@ const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
             indicadores = JSON.stringify(indicadores)
             indicadores = JSON.parse(indicadores)
 
-            console.log('indicadores: ', indicadores)
+            //console.log('indicadores: ', indicadores)
 
-            app.use(cors({ credentials: true }));
-            app.get('/indicadores', (req, res) => {
+            // app.use(cors({ credentials: true }));
+            // app.get('/indicadores', (req, res) => {
+            //     res.json(indicadores);
 
-                res.send(indicadores);
 
-            })
+            // });
 
             db.detach();
 
+            resolve(indicadores);
+
         })
+
+        db.detach();
+
+
     });
 }
 
@@ -133,6 +138,7 @@ const incluir = (dados, app) => {
 
         }
 
+        var script = dados.editsql
         let opcoes = JSON.stringify(optionsIndicador)
 
         if (err) {
@@ -141,9 +147,9 @@ const incluir = (dados, app) => {
         }
         let SQL = `insert into
                TBL_INDICADORES
-               (DESC_INDICADOR,MODELO,BUSCARDADOS,OPTIONSIND)
+               (DESC_INDICADOR,MODELO,BUSCARDADOS,OPTIONSIND,SQL)
                values
-               ('${dados.editDescInd}', '${dados.modeloIndicador}','${dados.editDados}','${opcoes}')`
+               ('${dados.editDescInd}', '${dados.modeloIndicador}','${dados.editDados}','${opcoes}','${script}')`
         console.log('SQL: ', SQL)
             // db = DATABASE
         db.query(SQL, null, function(err, result) {
@@ -264,6 +270,7 @@ let buscaIndicadores = function(SQLParametro, funcaoExecute) {
                     objDados.modelo = element.MODELO
                     objDados.buscarDados = element.BUSCARDADOS
                     objDados.optionsInd = JSON.parse(element.OPTIONSIND)
+                    objDados.sql = element.SQL
                     indicador.push(objDados)
 
                 });

@@ -121,6 +121,7 @@ async function editarIndicador(chaveEdicao) {
                 let editLargura = document.getElementById('editarLargura')
                 let editAltura = document.getElementById('editarAltura')
                 let editDados = document.getElementById('editarDados')
+                let editsql = document.getElementById('editarsql')
                 let chave = document.getElementById('chave')
                 let chaveIndicadora = document.getElementById('chaveIndicadora')
 
@@ -131,6 +132,7 @@ async function editarIndicador(chaveEdicao) {
                 editAltura.value = campo['optionsInd'].height
                 editLargura.value = campo['optionsInd'].width
                 editDados.value = campo['buscarDados']
+                editsql.value = campo['sql']
                 chave.value = campo['key']
                 chaveIndicadora.innerHTML = ' ' + campo['key']
             }

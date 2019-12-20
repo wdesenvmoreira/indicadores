@@ -69,6 +69,8 @@
              if (executeIndicador.editarIndicador(req.body, app)) {
                  SQLBuscaInd = 'select * from TBL_INDICADORES where key = ' + req.body.chave
                  res.redirect('http://localhost:3000/indicadores')
+             } else {
+                 console.log('Erro ao editar Indicador em:editarIndicador() - controllerExecutar.js ')
              }
          } else {
              if (req.body.operacao == 'excluir') {

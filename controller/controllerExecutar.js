@@ -79,7 +79,6 @@ const localizarIndicadorPorKey = (SQL) => {
             var indicador = []
             var indicadores = { "indicadores": null }
 
-
             result.forEach(element => {
                 var objDados = new Object()
                 objDados.key = element.KEY
@@ -87,6 +86,7 @@ const localizarIndicadorPorKey = (SQL) => {
                 objDados.modelo = element.MODELO
                 objDados.buscarDados = element.BUSCARDADOS
                 objDados.optionsInd = JSON.parse(element.OPTIONSIND)
+                objDados.sql = element.SQL
                 indicador.push(objDados)
 
             });
@@ -95,7 +95,7 @@ const localizarIndicadorPorKey = (SQL) => {
             indicadores = JSON.stringify(indicadores)
             indicadores = JSON.parse(indicadores)
 
-            //console.log('indicadores: ', indicadores)
+
 
             // app.use(cors({ credentials: true }));
             // app.get('/indicadores', (req, res) => {
@@ -106,7 +106,7 @@ const localizarIndicadorPorKey = (SQL) => {
 
             db.detach();
 
-            resolve(indicadores);
+            resolve(result);
 
         })
 
@@ -165,8 +165,14 @@ const incluir = (dados, app) => {
 }
 
 const editarIndicador = (dados, app) => {
+    let cabecalhoArray = dados.editarCabecalho.split(" ")
+        // let cab = cabecalhoArray.map((campo) => {        ["number", campo] })
+    let cab = []
+    cabecalhoArray.forEach(element => {
+        cab.push(["number", element])
+    });
     let key = dados.chave
-    console.log('Dentro de Edição')
+    console.log('EDITARSQL:', dados.editarsql)
     firebird.attach(optionsInd, function(err, db) {
         var optionsIndicador = {
             "chart": {
@@ -174,7 +180,8 @@ const editarIndicador = (dados, app) => {
                 "subtitle": `${dados.editarSubtitulo}`
             },
             "width": dados.editarLargura,
-            "height": dados.editarAltura
+            "height": dados.editarAltura,
+            "cabecalho": cab
 
         }
 
@@ -184,15 +191,18 @@ const editarIndicador = (dados, app) => {
             throw err;
             console.log('Erro:', err)
         }
+        var script = dados.editarsql.replace(/'/g, () => { return "''" });
+        console.log('script: ', script)
         let SQL = `update
                TBL_INDICADORES
                set DESC_INDICADOR ='${dados.editarDescInd}' ,
                MODELO ='${dados.editarModeloIndicador}',
                BUSCARDADOS ='${dados.editarDados}',
-               OPTIONSIND ='${opcoes}'
+               OPTIONSIND ='${opcoes}',
+               SQL = '${script}'
                where KEY = ${key}`
-        console.log('SQL: ', SQL)
-            // db = DATABASE
+
+        // db = DATABASE
         db.query(SQL, null, function(err, result) {
             db.query(`SELECT * FROM TBL_INDICADORES WHERE key=${key}`, function(err, result) {
                 console.log('Ultimo registro Alterado', result);

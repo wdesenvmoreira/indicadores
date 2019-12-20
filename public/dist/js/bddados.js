@@ -1,6 +1,7 @@
-async function dadoslinha() {
+async function dadoslinha(chave) {
     // let allInd = await fetch('/dist/js/dados.json')
-    let allInd = await fetch('http://localhost:3000/dados')
+    let urlDados = 'http://localhost:3000/dados/' + chave
+    let allInd = await fetch(urlDados)
         .then(response => response.json())
         .then(data => {
             return data // Prints result from `response.json()` in getRequest

@@ -181,11 +181,11 @@ function verficarFuncaoIndicador(modeloIndicador) {
 }
 
 
-function verificarFuncaoBuscarDados(nomeFuncao) {
+function verificarFuncaoBuscarDados(nomeFuncao, chave) {
     switch (nomeFuncao) {
         case "dadoslinha":
             try {
-                return dadoslinha()
+                return dadoslinha(chave)
             } catch (error) {
                 console.log("Erro: ", error, 'Problemas na função VerificarFuncaoBuscarDados')
             }

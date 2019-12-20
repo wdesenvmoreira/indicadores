@@ -1,5 +1,5 @@
 var buscarDados = require('../controller/controllerDados.js')
-var indicadores = require('../controller/controllerExecutar')
+var indicadores = require('../controller/controllerExecutar.js')
 
 
 dadosRota = (app) => {
@@ -15,7 +15,7 @@ dadosRota = (app) => {
         extract(year from df.dtemissao_docfat) ano
       from documento_fatura df
       left join pessoa  cliente  on (cliente.codigo_pessoa = df.cliente_docfat)
-      where df.dtemissao_docfat between '01/01/2019' and '12/31/2019' and cliente.codigo_pessoa in(1,100,2000) 
+      where df.dtemissao_docfat between ''01/01/2019'' and ''12/31/2019'' and cliente.codigo_pessoa in(1,100,2000) 
         group by 5,4,2,1`
 
         let vdados = buscarDados.buscarDados(SQL)
@@ -68,24 +68,16 @@ dadosRota = (app) => {
     app.get('/dados/:chave', async(req, res) => {
 
         //SQL, Pontos, tipo de dados
-        var SQLInd = `SELECT SQL FROM TBLINDICADORES WHERE chave = ${req.params.chave}`
+        var SQLInd = `SELECT * FROM TBL_INDICADORES WHERE key = ${req.params.chave}`
         console.log('SQLInd:', SQLInd)
-        SQLInd = `select
-        df.cliente_docfat,
-        cliente.razaosocial_pessoa,
-        iif( sum(df.vlrliquido_docfat) <> 0, sum(df.vlrliquido_docfat), 0 ) total,
-        extract(month from df.dtemissao_docfat) mes,
-        extract(year from df.dtemissao_docfat) ano
-      from documento_fatura df
-      left join pessoa  cliente  on (cliente.codigo_pessoa = df.cliente_docfat)
-      where df.dtemissao_docfat between ''01/01/2019'' and ''12/31/2019'' and cliente.codigo_pessoa in(1,100,2000) 
-        group by 5,4,2,1`
-
-        // var SQL = indicadores.localizarIndicadorPorKey(SQLInd)   
 
 
+        // var SQL = await indicadores.localizarIndicadorPorKey(SQLInd)
+        var SQL = await indicadores.buscaIndicadores({ "operacao": "chave", "condicao": req.params.chave }, '')
+        console.log('retorno de localziarindicaodorporkey', SQL.indicadores[0].sql)
 
-        let vdados = buscarDados.buscarDados(SQLInd)
+
+        let vdados = buscarDados.buscarDados(SQL.indicadores[0].sql)
 
         var Resultado;
 

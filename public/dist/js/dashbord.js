@@ -13,9 +13,8 @@ async function postarInd() {
         dadoIndicadores.forEach(async function(campo) {
             //Pelo modelo verifica qual função para plotar indicador irá usar. 
             var funcaoIndicador = verficarFuncaoIndicador(campo.modelo)
-
-            // No indicador verifica qual função de buscar os dados. 
-            let funcaoBuscaDados = await verificarFuncaoBuscarDados(campo.buscarDados)
+                // No indicador verifica qual função de buscar os dados. Em indicadores.js
+            let funcaoBuscaDados = await verificarFuncaoBuscarDados(campo.buscarDados, campo.key)
                 // var dadosInd = funcaoBuscaDados.dadosIndLinha
             var dadosInd = funcaoBuscaDados
                 // var cabecalho = funcaoBuscaDados.cabecalho

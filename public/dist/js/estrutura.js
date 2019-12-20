@@ -120,6 +120,7 @@ async function editarIndicador(chaveEdicao) {
                 let editSubtitulo = document.getElementById('editarSubtitulo')
                 let editLargura = document.getElementById('editarLargura')
                 let editAltura = document.getElementById('editarAltura')
+                let editCabecalho = document.getElementById('editarCabecalho')
                 let editDados = document.getElementById('editarDados')
                 let editsql = document.getElementById('editarsql')
                 let chave = document.getElementById('chave')
@@ -131,6 +132,16 @@ async function editarIndicador(chaveEdicao) {
                 editSubtitulo.value = campo['optionsInd'].chart.subtitle
                 editAltura.value = campo['optionsInd'].height
                 editLargura.value = campo['optionsInd'].width
+                let cabecaclhoConteudo = ''
+                campo['optionsInd'].cabecalho.forEach((conteudo) => {
+                    if (typeof(cabecaclhoConteudo) == 'undefined' || cabecaclhoConteudo == '') {
+                        cabecaclhoConteudo = conteudo[1];
+                    } else {
+                        cabecaclhoConteudo = cabecaclhoConteudo + ' ' + conteudo[1]
+
+                    }
+                })
+                editCabecalho.value = cabecaclhoConteudo
                 editDados.value = campo['buscarDados']
                 editsql.value = campo['sql']
                 chave.value = campo['key']

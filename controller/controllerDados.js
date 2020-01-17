@@ -96,7 +96,7 @@ const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
             indicadores = JSON.stringify(indicadores)
             indicadores = JSON.parse(indicadores)
 
-            console.log('indicadores: ', indicadores)
+            //   console.log('indicadores: ', indicadores)
 
             app.use(cors({ credentials: true }));
             app.get('/indicadores', (req, res) => {
@@ -114,7 +114,7 @@ const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
 
 let buscarDados = function(SQL) {
 
-    console.log('select:', SQL)
+    //  console.log('select:', SQL)
     return new Promise((resolve, reject) => {
 
 

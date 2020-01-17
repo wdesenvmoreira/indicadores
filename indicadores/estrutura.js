@@ -121,6 +121,9 @@ function editarIndicador(chaveEdicao) {
                 let editDados = document.getElementById('editarDados')
                 let chave = document.getElementById('chave')
                 let chaveIndicadora = document.getElementById('chaveIndicadora')
+                let editCabecalho = document.getElementById('editarCabecalho')
+                let editEixoX = document.getElementById('editarEixoX')
+                let editarsql = document.getElementById('editarsql')
 
                 modeloIndicador.value = campo['modelo']
                 editDescInd.value = campo['DESC_INDICADOR']
@@ -131,6 +134,13 @@ function editarIndicador(chaveEdicao) {
                 editDados.value = campo['buscarDados']
                 chave.value = campo['key']
                 chaveIndicadora.innerHTML = ' ' + campo['key']
+                editCabecalho.value = campo['optionsInd'].cabecalho
+                console.log('campo[optionsInd]:', campo['optionsInd'])
+
+                //editEixoX.value = campo['optionsInd'].eixoX.
+                editarsql.value = campo['SQL']
+                console.log('Estrutura> Chave: ', cahve.value)
+                console.log('Estrutura> EixoX: ', editEixoX.value)
             }
         });
     } catch (error) {

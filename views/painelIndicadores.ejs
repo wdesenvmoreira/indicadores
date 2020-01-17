@@ -85,7 +85,7 @@
                                 <%= indicador.modelo %>
                             </td>
                             <td>
-                                <a href="#" onclick=editarIndicador(<%=indicador.key %>)   id=edit<%= indicador.key  %>   data-toggle="modal" data-target="#ModalEditarIndicador">E</a>
+                                <a href="#" onclick=editarIndicador(<%=indicador.key %>)   id=edit<%= indicador.key  %> name=edit<%= indicador.key  %>   data-toggle="modal" data-target="#ModalEditarIndicador">E</a>
                             </td>
                             <td>
                                 <a href="#" onclick=excluirIndicador(<%=indicador.key %>)   id=exlui<%= indicador.key  %> >X</a>
@@ -171,6 +171,14 @@
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Eixo X:</span>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipoCabecalho" id="tipoCabecalho1" value="number">
+                                    <label class="form-check-label" for="inlineRadio1">Numero</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipoCabecalho" id="tipoCabecalho2" value="string">
+                                    <label class="form-check-label" for="inlineRadio2">Texto</label>
+                                </div>
                             </div>
                             <input type="text" class="form-control" id="editEixoX" name='editEixoX' aria-label="Cabeçalho do indicador" aria-describedby="Cabeçalho do indicador. ">
                         </div>

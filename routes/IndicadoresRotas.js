@@ -7,9 +7,9 @@
          let dado = ''
          SQLBuscaInd = { operacao: op, condicao: dado }
 
-         async function fx(v) { return v }
+         //async function fx(v) { return v }
 
-         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx)
+         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd)
 
          var Resultado;
 
@@ -27,9 +27,9 @@
          let dado = ''
          SQLBuscaInd = { operacao: op, condicao: dado }
 
-         async function fx(v) { return v }
-         console.log('SQLBuscaInd', SQLBuscaInd)
-         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx)
+         // async function fx(v) { return v }
+         // console.log('SQLBuscaInd', SQLBuscaInd)
+         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd)
 
          var Resultado;
          //  let ind = Resultado.indicadores
@@ -47,9 +47,9 @@
          let dado = ''
          SQLBuscaInd = { operacao: op, condicao: dado }
 
-         async function fx(v) { return v }
-         console.log('SQLBuscaInd', SQLBuscaInd)
-         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx)
+         //async function fx(v) { return v }
+         //console.log('SQLBuscaInd', SQLBuscaInd)
+         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd)
 
          var Resultado;
          //  let ind = Resultado.indicadores
@@ -65,6 +65,7 @@
 
      app.post('/indicador/editar', (req, res) => {
          function fx(v) { return v }
+
          if (req.body.operacao == 'editar') {
              if (executeIndicador.editarIndicador(req.body, app)) {
                  SQLBuscaInd = 'select * from TBL_INDICADORES where key = ' + req.body.chave
@@ -87,7 +88,7 @@
      })
 
      app.post('/indicador/novo', (req, res) => {
-         if (executeIndicador.incluir(req.body, app)) {
+         if (executeIndicador.incluir(req.body)) {
              res.redirect('http://localhost:3000/indicadores')
          } else {
              console.log('Error: ', error, 'Erro ao incluir indicador. ')

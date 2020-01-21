@@ -3,6 +3,7 @@ var cors = require('cors')
 var firebird = require('node-firebird');
 const conexao = require('../servidor/conexao')
 const conexaoInd = require('../servidor/conexaoInd')
+const controllerDados = require('../controller/controllerDados')
 let options = conexao;
 let optionsInd = conexaoInd;
 
@@ -116,7 +117,21 @@ const localizarIndicadorPorKey = (SQL) => {
     });
 }
 
-const incluir = (dados) => {
+const incluir = async(dados) => {
+    var script = dados.editsql //.replace(/'/g, () => { return "''" });
+    console.log('script:', script)
+
+    let vdados = await controllerDados.buscarDados(script)
+    console.log('vdados:', vdados)
+    var Resultado = vdados
+    console.log('Resultado:', Resultado)
+    let rd = async() => {
+        return await Resultado
+    }
+    console.log('rd:', await rd().then((res) => { return res }))
+
+
+
 
     firebird.attach(optionsInd, function(err, db) {
 
@@ -126,26 +141,30 @@ const incluir = (dados) => {
         }
 
         var dadosInd = tratarDadosInd(dados)
-        console.log("dadosInd:", dadosInd.script)
+            //  console.log("dadosInd:", dadosInd.script.trim())
         let SQL = `insert into
                TBL_INDICADORES
                (DESC_INDICADOR,MODELO,BUSCARDADOS,OPTIONSIND,SQL)
                values
                ('${dados.editDescInd}', '${dados.modeloIndicador}','${dados.editDados}','${dadosInd.optionsInd}','${dadosInd.script}')`
-        console.log('SQL: ', SQL)
+            //console.log('SQL: ', SQL)
 
         // db = DATABASE
-        db.query(SQL, null, function(err, result) {
+        db.query(SQL, null, async function(err, result) {
 
-            console.log('retorno do result dentro do incluir: ', result)
+
         });
 
     });
     let SQLParametro = { operacao: "ULTIMO", condicao: "ULTIMO" }
 
 
-    buscaIndicadores(SQLParametro)
-    return true
+    if (buscaIndicadores(SQLParametro)) {
+        return true
+    } else {
+        return false
+    }
+
 }
 
 const tratarDadosInd = (dados) => {
@@ -156,6 +175,7 @@ const tratarDadosInd = (dados) => {
         "script": null,
         "eixoX": null
     }
+    var script = dados.editsql.replace(/'/g, () => { return "''" });
 
     let cabecalhoArray = dados.editCabecalho.split(" ")
     let cab = []
@@ -163,23 +183,24 @@ const tratarDadosInd = (dados) => {
         cab.push([dados.tipoCabecalho, element])
     });
 
-    let eixoX = () => {
-        let vetorEixo = dados.editEixoX.split(" ")
+    // let eixoX = () => {
+    //     let vetorEixo = dados.editEixoX.split(" ")
 
-        let eixo = []
+    //     let eixo = []
 
-        vetorEixo.forEach((conteudo) => {
-            if (dados.tipoCabecalho == 'number') {
-                conteudo = parseInt(conteudo)
-            }
-            let vt = [conteudo]
-            eixo.push(vt)
-        })
+    //     vetorEixo.forEach((conteudo) => {
+    //         if (dados.tipoCabecalho == 'number') {
+    //             conteudo = parseInt(conteudo)
+    //         }
+    //         let vt = [conteudo]
+    //         eixo.push(vt)
+    //     })
 
-        return eixo
-    }
-    let eX = eixoX()
-        //console.log("eixo:", eX)
+    //     return eixo
+    // }
+    // let eXs = eixoX()
+    let eX = dados.editEixoX
+
 
     var optionsIndicador = {
         "chart": {
@@ -194,8 +215,6 @@ const tratarDadosInd = (dados) => {
 
     }
     var script = dados.editsql.replace(/'/g, () => { return "''" });
-    //var script = dados.editsql
-    console.log("script trim:", script.trim())
     let opcoes = JSON.stringify(optionsIndicador)
 
 

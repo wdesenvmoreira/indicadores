@@ -18,6 +18,8 @@ dadosRota = (app) => {
 
         let vdados = buscarDados.buscarDados(SQL.indicadores[0].sql)
 
+
+
         var Resultado;
 
         Resultado = await vdados
@@ -26,7 +28,7 @@ dadosRota = (app) => {
 
             });
 
-        console.log('cabecalho:', SQL.indicadores[0].optionsInd.cabecalho.length)
+        // console.log('cabecalho:', SQL.indicadores[0].optionsInd.cabecalho.length)
 
         let dadosEixo = SQL.indicadores[0].optionsInd.eixoX.split(' ')
         let dadosIndicador = []
@@ -156,7 +158,7 @@ dadosRota = (app) => {
         console.log('tipobusca', req.params.condicoes)
         if (req.params.condicoes == 'Todos') {
             dados = dadosIndicadores.allIndicadores()
-            console.log('dados', dados)
+                //  console.log('dados', dados)
         }
 
         res.render('home', { 'dados': dados })
@@ -170,8 +172,8 @@ dadosRota = (app) => {
         SQLBuscaInd = { operacao: op, condicao: dado }
 
         async function fx(v) { return v }
-        console.log(SQLBuscaInd)
-        console.log('parametro', req.params.condicoes)
+        //  console.log(SQLBuscaInd)
+        // console.log('parametro', req.params.condicoes)
         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
         var Resultado;
@@ -183,7 +185,7 @@ dadosRota = (app) => {
             });
         SQLBuscaInd = ''
             //res.send(Resultado)
-        console.log('Resultado:', Resultado)
+            //  console.log('Resultado:', Resultado)
         res.render('painelIndicadores', { 'dados': Resultado })
 
 
@@ -193,9 +195,9 @@ dadosRota = (app) => {
         let op = req.query.tipoBusca
         let dado = req.query.editLocalizar
         SQLBuscaInd = { operacao: op, condicao: dado }
-        console.log('body', req.query.tipoBusca)
+            //  console.log('body', req.query.tipoBusca)
         async function fx(v) { return v }
-        console.log(SQLBuscaInd)
+        //  console.log(SQLBuscaInd)
 
         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
@@ -208,7 +210,7 @@ dadosRota = (app) => {
             });
         SQLBuscaInd = ''
             //res.send(Resultado)
-        console.log('Resultado:', Resultado)
+            //   console.log('Resultado:', Resultado)
         res.render('painelIndicadores', { 'dados': Resultado })
 
 

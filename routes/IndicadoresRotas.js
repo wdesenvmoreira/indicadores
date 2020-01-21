@@ -100,10 +100,10 @@
      app.get('/listarIndicadores/:condicoes', (req, res) => {
          let dados
 
-         console.log('tipobusca', req.params.condicoes)
+         // console.log('tipobusca', req.params.condicoes)
          if (req.params.condicoes == 'Todos') {
              dados = dadosIndicadores.allIndicadores()
-             console.log('dados', dados)
+                 //     console.log('dados', dados)
          }
 
          res.render('home', { 'dados': dados })
@@ -117,8 +117,8 @@
          SQLBuscaInd = { operacao: op, condicao: dado }
 
          async function fx(v) { return v }
-         console.log(SQLBuscaInd)
-         console.log('parametro', req.params.condicoes)
+         // console.log(SQLBuscaInd)
+         // console.log('parametro', req.params.condicoes)
          let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
          var Resultado;
@@ -130,7 +130,7 @@
              });
          SQLBuscaInd = ''
              //res.send(Resultado)
-         console.log('Resultado:', Resultado)
+             // console.log('Resultado:', Resultado)
          res.render('painelIndicadores', { 'dados': Resultado })
 
 
@@ -140,9 +140,9 @@
          let op = req.query.tipoBusca
          let dado = req.query.editLocalizar
          SQLBuscaInd = { operacao: op, condicao: dado }
-         console.log('body', req.query.tipoBusca)
+             // console.log('body', req.query.tipoBusca)
          async function fx(v) { return v }
-         console.log(SQLBuscaInd)
+         //console.log(SQLBuscaInd)
 
          let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx, app)
 
@@ -155,7 +155,7 @@
              });
          SQLBuscaInd = ''
              //res.send(Resultado)
-         console.log('Resultado:', Resultado)
+             // console.log('Resultado:', Resultado)
          res.render('painelIndicadores', { 'dados': Resultado })
 
 

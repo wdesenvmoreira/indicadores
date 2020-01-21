@@ -114,7 +114,7 @@ const localizarIndicadorPorKey = (SQL, funcaoExecute, app) => {
 
 let buscarDados = function(SQL) {
 
-    //  console.log('select:', SQL)
+    console.log('select:', SQL)
     return new Promise((resolve, reject) => {
 
 
@@ -126,10 +126,37 @@ let buscarDados = function(SQL) {
             }
 
             // db = DATABASE
-            db.query(SQL, async function(err, result) {
+            db.query(SQL, function(err, result) {
 
 
+                console.log('SQL:', SQL)
 
+                db.detach();
+                console.log('result: ', result)
+                resolve(result);
+
+            })
+        });
+    });
+}
+let buscarDados2 = async function(SQL) {
+
+    console.log('select:', SQL)
+    return (resolve, reject) => {
+
+
+        pool.get(function(err, db) {
+
+            if (err) {
+                console.log('Erro ao conectar à base de dados.')
+                throw err;
+            }
+
+            // db = DATABASE
+            db.query(SQL, function(err, result) {
+
+
+                // console.log('result:', result)
 
                 db.detach();
 
@@ -137,9 +164,8 @@ let buscarDados = function(SQL) {
 
             })
         });
-    });
+    };
 }
 
 
-
-module.exports = { buscarDados }
+module.exports = { buscarDados, buscarDados2 }

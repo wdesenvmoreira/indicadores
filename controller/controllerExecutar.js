@@ -96,15 +96,6 @@ const localizarIndicadorPorKey = (SQL) => {
             indicadores = JSON.stringify(indicadores)
             indicadores = JSON.parse(indicadores)
 
-
-
-            // app.use(cors({ credentials: true }));
-            // app.get('/indicadores', (req, res) => {
-            //     res.json(indicadores);
-
-
-            // });
-
             db.detach();
 
             resolve(result);
@@ -118,18 +109,10 @@ const localizarIndicadorPorKey = (SQL) => {
 }
 
 const incluir = async(dados) => {
-    var script = dados.editsql //.replace(/'/g, () => { return "''" });
-    console.log('script:', script)
-
-    let vdados = await controllerDados.buscarDados(script)
-    console.log('vdados:', vdados)
-    var Resultado = vdados
-    console.log('Resultado:', Resultado)
-    let rd = async() => {
-        return await Resultado
+    async function tratandodados() {
+        return await tratarDadosInd(dados)
     }
-    console.log('rd:', await rd().then((res) => { return res }))
-
+    let dadosInd = await tratandodados()
 
 
 
@@ -140,8 +123,9 @@ const incluir = async(dados) => {
             console.log('Erro:', err)
         }
 
-        var dadosInd = tratarDadosInd(dados)
-            //  console.log("dadosInd:", dadosInd.script.trim())
+
+
+
         let SQL = `insert into
                TBL_INDICADORES
                (DESC_INDICADOR,MODELO,BUSCARDADOS,OPTIONSIND,SQL)
@@ -167,39 +151,28 @@ const incluir = async(dados) => {
 
 }
 
-const tratarDadosInd = (dados) => {
+const tratarDadosInd = async(dados) => {
 
     let dadosInd = {
-        "cabecalho": null,
+
         "optionsInd": null,
         "script": null,
-        "eixoX": null
+
     }
-    var script = dados.editsql.replace(/'/g, () => { return "''" });
 
-    let cabecalhoArray = dados.editCabecalho.split(" ")
-    let cab = []
-    cabecalhoArray.forEach(element => {
-        cab.push([dados.tipoCabecalho, element])
-    });
-
-    // let eixoX = () => {
-    //     let vetorEixo = dados.editEixoX.split(" ")
-
-    //     let eixo = []
-
-    //     vetorEixo.forEach((conteudo) => {
-    //         if (dados.tipoCabecalho == 'number') {
-    //             conteudo = parseInt(conteudo)
-    //         }
-    //         let vt = [conteudo]
-    //         eixo.push(vt)
-    //     })
-
-    //     return eixo
-    // }
-    // let eXs = eixoX()
+    async function cont() { return await controllerDados.buscarDados(dados.editsql) }
+    let script = dados.editsql.replace(/'/g, () => { return "''" });
+    let conteudo = await cont()
+    console.log('conteudo:', conteudo)
     let eX = dados.editEixoX
+
+
+    let cab = []
+    cab.push([dados.tipoCabecalho, 'MÊS'])
+    console.log('primeiro cabecalho: ', cab)
+    conteudo.forEach(dadosconteudo => {
+        cab.push([dados.tipoCabecalho, dadosconteudo.RAZAOSOCIAL_PESSOA])
+    })
 
 
     var optionsIndicador = {
@@ -214,26 +187,48 @@ const tratarDadosInd = (dados) => {
         "eixoX": eX
 
     }
-    var script = dados.editsql.replace(/'/g, () => { return "''" });
+
     let opcoes = JSON.stringify(optionsIndicador)
+
 
 
     dadosInd.optionsInd = opcoes
     dadosInd.script = script.trim()
 
-
     return dadosInd
 }
 
-const editarIndicador = (dados, app) => {
+const editarIndicador = async(dados, app) => {
 
-    let cabecalhoArray = dados.editarCabecalho.split(" ")
-        // let cab = cabecalhoArray.map((campo) => {        ["number", campo] })
+    async function pegarDados() {
+        async function cont() { return await controllerDados.buscarDados(dados.editarsql) }
+        let conteudo = await cont()
+        console.log('conteudo:', conteudo.length)
+        return conteudo
+    }
+    let vetDados = await pegarDados()
+    console.log('Total:', vetDados)
+
+
+
+    let cabecalhoArray = dados.editarCabecalho.split(";")
     let cab = []
-    cabecalhoArray.forEach(element => {
-        cab.push(["number", element])
-    });
+
+    if (cabecalhoArray.length != vetDados.length) {
+        console.log(`Incompatibilidade no novo cabeçalho: Quantidade Atual ${vetDados.length}. Informado ${cabecalhoArray.length}`)
+        cab.push(["number", 'MÊS'])
+        vetDados.forEach(element => {
+            cab.push(["number", element.RAZAOSOCIAL_PESSOA])
+        });
+    } else {
+
+        cab.push(["number", 'MÊS'])
+        cabecalhoArray.forEach(element => {
+            cab.push(["number", element])
+        });
+    }
     let key = dados.chave
+    console.log('cab:', cab)
     firebird.attach(optionsInd, function(err, db) {
         var optionsIndicador = {
             "chart": {
@@ -342,7 +337,7 @@ let buscaIndicadores = function(SQLParametro) {
                 var indicador = []
                 var indicadores = { "indicadores": null }
 
-                //console.log('result:', result)
+                // console.log('result:', result)
                 result.forEach(element => {
                     var objDados = new Object()
                     objDados.key = element.KEY

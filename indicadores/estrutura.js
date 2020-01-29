@@ -134,8 +134,10 @@ function editarIndicador(chaveEdicao) {
                 editDados.value = campo['buscarDados']
                 chave.value = campo['key']
                 chaveIndicadora.innerHTML = ' ' + campo['key']
-                editCabecalho.value = campo['optionsInd'].cabecalho
-                console.log('campo[optionsInd]:', campo['optionsInd'])
+                let cabecalhoEditado = campo['optionsInd'].cabecalho.shift()
+
+                editCabecalho.value = cabecalhoEditado
+                console.log('cabecalho Editado:', cabecalhoEditado)
 
                 //editEixoX.value = campo['optionsInd'].eixoX.
                 editarsql.value = campo['SQL']

@@ -133,13 +133,13 @@ async function editarIndicador(chaveEdicao) {
                 editSubtitulo.value = campo['optionsInd'].chart.subtitle
                 editAltura.value = campo['optionsInd'].height
                 editLargura.value = campo['optionsInd'].width
-                console.log(campo)
                 let cabecaclhoConteudo = ''
+                campo['optionsInd'].cabecalho.shift()
                 campo['optionsInd'].cabecalho.forEach((conteudo) => {
                     if (typeof(cabecaclhoConteudo) == 'undefined' || cabecaclhoConteudo == '') {
                         cabecaclhoConteudo = conteudo[1];
                     } else {
-                        cabecaclhoConteudo = cabecaclhoConteudo + ' ' + conteudo[1]
+                        cabecaclhoConteudo = cabecaclhoConteudo.trim() + ' ' + conteudo[1]
 
                     }
                 })

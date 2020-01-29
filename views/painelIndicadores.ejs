@@ -162,12 +162,12 @@
                             </div>
                             <input type="text" class="form-control" id="editAltura" name='editAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
                         </div>
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Cabeçalho:</span>
                             </div>
                             <input type="text" class="form-control" id="editCabecalho" name='editCabecalho' aria-label="Cabeçalho do indicador" aria-describedby="Cabeçalho do indicador. ">
-                        </div>
+                        </div> -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Eixo X:</span>
@@ -272,11 +272,11 @@
                             </div>
                             <input type="text" class="form-control" id="editarAltura" name='editarAltura' aria-label="Altura do Indicador" aria-describedby="Altura do Indicador">
                         </div>
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3" id="divInputCabecalho" data-trigger="focus" data-toggle="popover" title="Coloque ';' entre as palavras." data-content="EX: Apelido; Nome Sobrenome; Nome.">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Cabeçalho:</span>
                             </div>
-                            <input type="text" class="form-control" id="editarCabecalho" name='editarCabecalho' aria-label="Cabeçalho do indicador" aria-describedby="Cabeçalho do indicador. ">
+                            <input type="text" class="form-control" id="editarCabecalho" name='editarCabecalho' aria-label="Cabeçalho do indicador" aria-describedby="Cabeçalho do indicador. " placeholder="Exemplo: Nome; Nome Sobrenome;">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -334,6 +334,12 @@
         // } catch (error) {
         //     console.log("Erro: função preencherTabela - painelIndicadores.html")
         // }
+        $(function() {
+            $('[data-toggle="popover"]').popover()
+        })
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
     </script>
 
 </body>

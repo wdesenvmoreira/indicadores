@@ -5,9 +5,9 @@ var executeIndicador = require('./controllerExecutar.js')
 var allIndicadores = () => {
         async function fx(v) { return v }
         var SQLBuscaInd = { operacao: 'Todos', condicao: '' }
-        console.log('dentro allIndicadores condições:', SQLBuscaInd)
+            // console.log('dentro allIndicadores condições:', SQLBuscaInd)
         let vdados = executeIndicador.buscaIndicadores(SQLBuscaInd, fx)
-        console.log('vdados:', vdados)
+            // console.log('vdados:', vdados)
         var Resultado = async() => {
             return await executeIndicador.buscaIndicadores(SQLBuscaInd, fx)
         }
@@ -17,7 +17,7 @@ var allIndicadores = () => {
                 return dados;
 
             });
-        console.log('Resultado: ', Resultado())
+        // console.log('Resultado: ', Resultado())
     }
     // }
 module.exports = { allIndicadores }

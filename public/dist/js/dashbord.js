@@ -20,6 +20,8 @@ async function postarInd() {
                 // var cabecalho = funcaoBuscaDados.cabecalho
             console.log('dados:', dadosInd)
             var cabecalho = campo.optionsInd.cabecalho
+                //  var caQuebrado = cabecalho.split(";")
+                // console.log(caQuebrado)
             postarIndicador(funcaoIndicador, cabecalho, dadosInd, campo.optionsInd)
         })
     } catch (error) {
